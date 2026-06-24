@@ -30,7 +30,7 @@ for (j in 1:length(numvec)) {
   Sys.sleep(1 / nsim)
   N <- numvec[j] #sample size
   SimulatedData <- data.frame(ID = as.character(seq(1,N,1)), 
-                              Temp = as.numeric(rep(c(14,18,22,26,30,34), length = N)), # six temp treatments 
+                              Temp = as.numeric(rep(c(14,24,34), length = N)), # six temp treatments 
                               sex = NA,
                               Mass = NA) 
   for (i in 1:nsim){
