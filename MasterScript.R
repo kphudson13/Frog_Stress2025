@@ -7,13 +7,14 @@ library(rsq)
 rm(list=ls()) #clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
-  mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2))
+  mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2)) %>%
+  mutate(mW = VCO2 * 21.1)
 
-# Models ------------------------------------------------------------------
+# VCO2 Models ------------------------------------------------------------------
 
-MSMRWeightTemp_Model <- lm(data = Data, log(VCO2) ~ log(Weight) + Temperature)
+MSMRWeightTemp_Model <- lm(data = Data, log(mW/Weight) ~ log(Weight) + Temperature)
 summary(MSMRWeightTemp_Model)
-CortMSMR_Model <- lm(data = Data, log(Cort) ~ log(VCO2/Weight))
+CortMSMR_Model <- lm(data = Data, log(Cort) ~ log(mW/Weight)) 
 summary(CortMSMR_Model)
 CortWeightTemp_Model <- lm(data = Data, log(Cort) ~ log(Weight) + Temperature)
 summary(CortWeightTemp_Model)
@@ -25,7 +26,7 @@ theme1 <- theme(legend.background = element_blank(),
                 legend.key.height = unit(0.6, "lines"),
                 legend.position=c(.8,0.1))
 
-(MSMRWeight_Plot <- ggplot(Data, aes(x = log(Weight), y = log(VCO2/Weight))) +
+(MSMRWeight_Plot <- ggplot(Data, aes(x = log(Weight), y = log(mW/Weight))) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
                 slope = coefficients(summary(MSMRWeightTemp_Model))[2,1]) + 
@@ -37,13 +38,13 @@ theme1 <- theme(legend.background = element_blank(),
                                       Partial ~R^2 ==~ .(round(rsq.partial(MSMRWeightTemp_Model)$partial.rsq[1], 2))))),
              parse = TRUE) +
     scale_x_continuous(limits = c(-1.5, 4)) +
-    scale_y_continuous(limits = c(-15, -8.5))
+    scale_y_continuous(limits = c(-12, -6))
 )
 
 ggsave(filename = "Figures/MSMRWeight_Plot.png",
        width=90, height=90, units="mm") #save a picture
 
-(MSMRTemp_Plot <- ggplot(data = Data, aes(x = Temperature, y = log(VCO2/Weight))) +
+(MSMRTemp_Plot <- ggplot(data = Data, aes(x = Temperature, y = log(mW/Weight))) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
                 slope = coefficients(summary(MSMRWeightTemp_Model))[3,1]) +
@@ -55,13 +56,13 @@ ggsave(filename = "Figures/MSMRWeight_Plot.png",
                                       Partial ~R^2 ==~ .(round(rsq.partial(MSMRWeightTemp_Model)$partial.rsq[2], 2))))),
              parse = TRUE)+
     scale_x_continuous(limits = c(12, 36)) +
-    scale_y_continuous(limits = c(-15, -8.5))
+    scale_y_continuous(limits = c(-12, -6))
 )
 
 ggsave(filename = "Figures/MSMRTemp_Plot.png",
        width=90, height=90, units="mm") #save a picture
 
-(CortMSMR_Plot <- ggplot(data = Data, aes(x=log(VCO2/Weight), y = log(Cort))) +
+(CortMSMR_Plot <- ggplot(data = Data, aes(x=log(mW/Weight), y = log(Cort))) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(CortMSMR_Model))[1,1],
                 slope = coefficients(summary(CortMSMR_Model))[2,1]) + 
@@ -72,7 +73,7 @@ ggsave(filename = "Figures/MSMRTemp_Plot.png",
                                       ~x^.(round(coefficients(summary(CortMSMR_Model))[2,1], 2)),
                                       ~R^2 ==~ .(round(summary(CortMSMR_Model)$r.squared, 2))))),
              parse = TRUE) +
-    scale_x_continuous(limits = c(-13, -9.5)) +
+    scale_x_continuous(limits = c(-11, -6)) +
     scale_y_continuous(limits = c(-4, 8))
 )
 
