@@ -1,3 +1,10 @@
+# =========================================================
+# Core statistics and plots for the 2026 study comparing
+# metabolic rate and corticosterone in frogs
+#
+# Author: Kyle Hudson
+# Circa 2026
+# =========================================================
 
 library(tidyverse)
 library(grid)
@@ -8,7 +15,9 @@ rm(list=ls()) #clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2)) %>%
-  mutate(mW = VCO2 * 21.1)
+  mutate(mW = VCO2 * 21.1) #convert vco2 to watts
+
+dir.create("Figures", showWarnings = FALSE) # create directory for figures
 
 # VCO2 Models ------------------------------------------------------------------
 
@@ -24,12 +33,15 @@ summary(CortWeightTemp_Model)
 theme1 <- theme(legend.background = element_blank(),
                 legend.title = element_blank(),
                 legend.key.height = unit(0.6, "lines"),
-                legend.position=c(.8,0.1))
+                legend.position=c(.8,0.1)) # set standard theme for plots
 
-(MSMRWeight_Plot <- ggplot(Data, aes(x = log(Weight), y = log(mW/Weight))) +
+# normalized points for plotting
+Data$MSMR_NormTemp <- log(Data$mW/Data$Weight) - MSMRWeightTemp_Model[["coefficients"]][["Temperature"]]*Data$Temperature
+
+(MSMRWeight_Plot <- ggplot(Data, aes(x = log(Weight), y = MSMR_NormTemp)) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
-                slope = coefficients(summary(MSMRWeightTemp_Model))[2,1]) + 
+                slope = coefficients(summary(MSMRWeightTemp_Model))[2,1]) + # pull lines from model
     theme_classic() +
     theme1 +
     annotate("text", size = 3.5, x = 1, y = -10,
@@ -41,10 +53,12 @@ theme1 <- theme(legend.background = element_blank(),
     scale_y_continuous(limits = c(-12, -6))
 )
 
-ggsave(filename = "Figures/MSMRWeight_Plot.png",
-       width=90, height=90, units="mm") #save a picture
+ggsave(filename = "Figures/MSMRWeight_Plot.png", width=90, height=90, units="mm") #save a picture
 
-(MSMRTemp_Plot <- ggplot(data = Data, aes(x = Temperature, y = log(mW/Weight))) +
+# normalized points for plotting
+Data$MSMR_NormWeight <- log(Data$mW/Data$Weight) - MSMRWeightTemp_Model[["coefficients"]][["log(Weight)"]]*log(Data$Weight)
+
+(MSMRTemp_Plot <- ggplot(data = Data, aes(x = Temperature, y = MSMR_NormWeight)) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
                 slope = coefficients(summary(MSMRWeightTemp_Model))[3,1]) +
@@ -59,8 +73,7 @@ ggsave(filename = "Figures/MSMRWeight_Plot.png",
     scale_y_continuous(limits = c(-12, -6))
 )
 
-ggsave(filename = "Figures/MSMRTemp_Plot.png",
-       width=90, height=90, units="mm") #save a picture
+ggsave(filename = "Figures/MSMRTemp_Plot.png", width=90, height=90, units="mm") #save a picture
 
 (CortMSMR_Plot <- ggplot(data = Data, aes(x=log(mW/Weight), y = log(Cort))) +
     geom_point(aes(colour = Species)) +
@@ -77,10 +90,12 @@ ggsave(filename = "Figures/MSMRTemp_Plot.png",
     scale_y_continuous(limits = c(-4, 8))
 )
 
-ggsave(filename = "Figures/CortMSMR_Plot.png",
-       width=90, height=90, units="mm") #save a picture
+ggsave(filename = "Figures/CortMSMR_Plot.png", width=90, height=90, units="mm") #save a picture
 
-(CortWeight_Plot <- ggplot(data = Data, aes(x=log(Weight), y = log(Cort))) +
+# normalized points for plotting
+Data$Cort_NormTemp <- log(Data$Cort) - CortWeightTemp_Model[["coefficients"]][["Temperature"]]*Data$Temperature
+
+(CortWeight_Plot <- ggplot(data = Data, aes(x=log(Weight), y = Cort_NormTemp)) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(CortWeightTemp_Model))[1,1],
                 slope = coefficients(summary(CortWeightTemp_Model))[2,1]) +
@@ -95,10 +110,12 @@ ggsave(filename = "Figures/CortMSMR_Plot.png",
     scale_y_continuous(limits = c(-2, 6))
 )
 
-ggsave(filename = "Figures/CortWeight_Plot.png",
-       width=90, height=90, units="mm") #save a picture
+ggsave(filename = "Figures/CortWeight_Plot.png", width=90, height=90, units="mm") #save a picture
 
-(CortTemp_Plot <- ggplot(data = Data, aes(x=Temperature, y = log(Cort))) +
+# normalized points for plotting
+Data$Cort_NormWeight <- log(Data$Cort) - CortWeightTemp_Model[["coefficients"]][["log(Weight)"]]*log(Data$Weight)
+
+(CortTemp_Plot <- ggplot(data = Data, aes(x=Temperature, y = Cort_NormWeight)) +
     geom_point(aes(colour = Species)) +
     geom_abline(intercept = coefficients(summary(CortWeightTemp_Model))[1,1],
                 slope = coefficients(summary(CortWeightTemp_Model))[3,1]) +
@@ -113,11 +130,9 @@ ggsave(filename = "Figures/CortWeight_Plot.png",
     scale_y_continuous(limits = c(-2, 6))
 )
 
-ggsave(filename = "Figures/CortTemp_Plot.png",
-       width=90, height=90, units="mm") #save a picture
+ggsave(filename = "Figures/CortTemp_Plot.png", width=90, height=90, units="mm") #save a picture
 
 # Stats Table -------------------------------------------------------------
-
 
 
 Stats_Tab <- rbind(coefficients(summary(MSMRWeightTemp_Model)),
@@ -134,7 +149,7 @@ Stats_Tab <- rbind(coefficients(summary(MSMRWeightTemp_Model)),
   `rownames<-`(c("MSMR ~ Weight", "MSMR ~ Temp", "Cort ~ Weight", "Cort ~ Temp", "Cort ~ MSMR"))
 
 tt1 <- ttheme_default(rowhead=list(fg_params=list(fontface = "bold"),
-                                   bg_params=list(fill="grey80")))
+                                   bg_params=list(fill="grey80"))) # theme for stats table
 
 write.csv(Stats_Tab, file = "Figures/StatsTab.csv", row.names = TRUE)
 
