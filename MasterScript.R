@@ -15,7 +15,8 @@ rm(list=ls()) #clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2)) %>%
-  mutate(mW = VCO2 * 21.1) #convert vco2 to watts
+  mutate(mW = VCO2 * 21.1) %>% #convert vco2 to watts
+  filter(Notes != "High CV")
 
 dir.create("Figures", showWarnings = FALSE) # create directory for figures
 
