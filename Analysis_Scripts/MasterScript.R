@@ -4,18 +4,19 @@
 #
 # Author: Kyle Hudson
 # Circa 2026
+# Live laugh love
 # =========================================================
 
 library(tidyverse)
 library(grid)
 library(gridExtra) # for stats table theme
-library(rsq)
+library(rsq) # for partial r2
 
-rm(list=ls()) #clear environment
+rm(list=ls()) # Clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2)) %>%
-  mutate(mW = VCO2 * 21.1) %>% #convert vco2 to watts
+  mutate(mW = VCO2 * 21.1) %>% # convert vco2 to watts
   filter(Notes != "High CV")
 
 dir.create("Figures", showWarnings = FALSE) # create directory for figures

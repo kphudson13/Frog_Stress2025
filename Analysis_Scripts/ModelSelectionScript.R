@@ -4,16 +4,19 @@
 #
 # Author: Kyle Hudson
 # Circa 2026
+# Live laugh love
 # =========================================================
 
 library(tidyverse)
 
-rm(list=ls()) #clear environment
+rm(list=ls()) # Clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2)) %>%
   mutate(mW = VCO2 * 21.1) %>% # convert vco2 to watts
   mutate(Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other"))
+
+# Build models ------------------------------------------------------------
 
 # Simple models 
 MSMRWeightTemp_Model <- lm(data = Data, log(mW/Weight) ~ log(Weight) + Temperature)
@@ -39,5 +42,18 @@ summary(CortMSMR_Spp_Model)
 CortWeightTemp_Spp_Model <- lm(data = Data, log(Cort) ~ log(Weight) + Temperature + Species)
 summary(CortWeightTemp_Spp_Model)
 
-AIC(MSMRWeightTemp_Model, MSMRWeightTemp_Rep_Model, MSMRWeightTemp_Spp_Model)
-BIC(MSMRWeightTemp_Model, MSMRWeightTemp_Rep_Model, MSMRWeightTemp_Spp_Model)
+# Model selection ---------------------------------------------------------
+
+# MSMR models
+MSMRWeightTemp_AIC <- AIC(MSMRWeightTemp_Model, MSMRWeightTemp_Rep_Model, MSMRWeightTemp_Spp_Model)
+MSMRWeightTemp_BIC <- BIC(MSMRWeightTemp_Model, MSMRWeightTemp_Rep_Model, MSMRWeightTemp_Spp_Model)
+
+# Cort models 
+CortWeightTemp_AIC <- AIC(CortWeightTemp_Model, CortWeightTemp_Rep_Model, CortWeightTemp_Spp_Model)
+CortWeightTemp_BIC <- BIC(CortWeightTemp_Model, CortWeightTemp_Rep_Model, CortWeightTemp_Spp_Model)
+
+# Cort MSMR models
+CortMSMR_AIC <- AIC(CortMSMR_Model, CortMSMR_Rep_Model, CortMSMR_Spp_Model)
+CortMSMR_BIC <- BIC(CortMSMR_Model, CortMSMR_Rep_Model, CortMSMR_Spp_Model)
+
+
