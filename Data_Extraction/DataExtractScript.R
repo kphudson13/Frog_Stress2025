@@ -22,10 +22,9 @@ rm(list = ls()) # Clear environment
 
 # Create directories ------------------------------------------------------
 
-dir.create(
-  "Data_Extraction/Raw_Figures",
-  showWarnings = FALSE,
-  recursive = TRUE)
+dir.create("Data_Extraction/Raw_Figures",
+           showWarnings = FALSE,
+           recursive = TRUE)
 
 # Experimental settings ---------------------------------------------------
 flow <- 50                 # flow rate (mL/min)
@@ -33,10 +32,9 @@ discard <- 40              # seconds discarded after switching
 cycle_length <- 361 + 601  # total cycle duration (sec)
 
 # List .exp files ---------------------------------------------------------
-files <- list.files(
-  path = "Data_Extraction",
-  pattern = "\\.exp$",
-  full.names = TRUE)
+files <- list.files(path = "Data_Extraction",
+                    pattern = "\\.exp$",
+                    full.names = TRUE)
 
 # FUNCTION: Fit asymptotic exponential model ------------------------------
 #
@@ -48,36 +46,31 @@ files <- list.files(
 # y0 = starting CO2
 # k  = wash-in rate constant
 
-
 fit_asymptote <- function(df){
   
   df <- df %>%
     mutate(t = row_number() - 1)
   
   # Starting parameter estimates
-  start_A  <- mean(tail(df$CO2, 30), na.rm = TRUE)
-  start_y0 <- first(df$CO2)
-  start_k  <- 0.01
+  start_A  <- mean(tail(df$CO2, 30), na.rm = TRUE) # last 30 points
+  start_y0 <- first(df$CO2) # first point after discard
+  start_k  <- 0.01 
   
   # Nonlinear fit
-  fit <- try(
-    nlsLM(
-      CO2 ~ A + (y0 - A) * exp(-k * t),
-      data = df,
-      start = list(
-        A = start_A,
-        y0 = start_y0,
-        k = start_k),
-      control = nls.lm.control(
-        maxiter = 200)),
+  fit <- try(nlsLM(
+    CO2 ~ A + (y0 - A) * exp(-k * t),
+    data = df,
+    start = list(A = start_A,
+                 y0 = start_y0,
+                 k = start_k),
+    control = nls.lm.control(maxiter = 200)),
     silent = TRUE)
   
   if(inherits(fit, "try-error")){
     return(NULL)
   } # If fit fails
   
-  # Predicted fitted values
-  df$fitted <- predict(fit)
+  df$fitted <- predict(fit) # Predicted fitted values
   
   list(asymptote = coef(fit)["A"],
        fit = fit,
@@ -90,44 +83,35 @@ process_exp <- function(file_path){
   
   # File metadata
   file_name <- basename(file_path)
-  
   base_name <- tools::file_path_sans_ext(file_name)
   
-  meta <- str_match(
-    base_name,
-    "^(\\d+c)(NS|S)-([A-Za-z0-9]+)_")
+  meta <- str_match(base_name,
+                    "^(\\d+c)(NS|S)-([A-Za-z0-9]+)_") # whatever dude
   
   temp    <- meta[,2]
   stress  <- meta[,3]
   date    <- meta[,4]
   run_num <- str_extract(base_name, "\\d+$")
   
-  fig_name <- paste(temp,
-                    stress,
-                    date,
-                    run_num,
-                    sep = "_")
+  fig_name <- paste(temp, stress, date, run_num, sep = "_") # name figure
   
   # Read Sable Systems file
   sableDat <- read.exp(file_path) %>%
     as.data.frame(.) %>%
     slice(-1) %>% # Cut out first row
     mutate(CO2_Raw = CO2, 
-           CO2d = CO2*(BP-WVP)/BP, # correct for WVP
+           CO2 = CO2*(BP-WVP)/BP, # correct for WVP
            time = row_number(),
-           cycle = floor((time - 1) / cycle_length ),
+           cycle = floor((time - 1) / cycle_length),
            time_in_cycle = (time - 1) %% cycle_length,
            phase = ifelse(time_in_cycle < 361,
                           "control",
-                          "animal"),
+                          "animal"), # second part is the actual animal
            valid = (phase == "control" & time_in_cycle >= discard) |
              (phase == "animal" & time_in_cycle >= (361 + discard)))
   
-  # =======================================================
   # PLOT RAW CO2 TRACE + FITTED ASYMPTOTES
-  # =======================================================
-  
-  fig_file <- file.path("Data_Extraction/Raw_Figures",
+  fig_file <- file.path("Data_Extraction/Raw_Figures", 
                         paste0(fig_name, "_RawCO2.png"))
   
   # Open PNG device
@@ -136,15 +120,14 @@ process_exp <- function(file_path){
     width = 12,
     height = 5,
     units = "in",
-    res = 300
-  )
+    res = 300)
   
   # Always close graphics device if function exits unexpectedly
   on.exit(try(grDevices::dev.off(),
               silent = TRUE),
           add = TRUE)
   
-  # Raw trace
+  # Base plot
   plot(sableDat$CO2, type = "l", col = "black", lwd = 1, 
        xlab = "Time (sec)", ylab = "CO2",
        ylim = c(min(-0.01, min(sableDat$CO2, na.rm = TRUE)),
@@ -222,7 +205,6 @@ process_exp <- function(file_path){
       next
     } # Skip failed animal fits
     
-    
     fitted_df <- fit_result$data
     
     asym <- fit_result$asymptote
@@ -253,8 +235,6 @@ process_exp <- function(file_path){
          col = "red") # Label animal asymptote
   }
   
-  
-  
   grDevices::dev.off()  # Explicitly close PNG device
   
   # CALCULATE CONTROL VALUES
@@ -262,10 +242,8 @@ process_exp <- function(file_path){
   control_vals <- sableDat %>%
     filter(phase == "control", valid) %>%
     group_by(cycle) %>%
-    summarise(control_co2 = mean(
-      tail(CO2, 30),
-      na.rm = TRUE),
-      .groups = "drop")
+    summarise(control_co2 = mean(tail(CO2, 30),na.rm = TRUE), 
+              .groups = "drop")
   
   # CALCULATE ANIMAL ASYMPTOTES
   animal_summary <- sableDat %>%
@@ -273,13 +251,7 @@ process_exp <- function(file_path){
     group_by(cycle) %>%
     group_modify(~{
       fit_result <- fit_asymptote(.x)
-      tibble(
-        total_co2 =
-          ifelse(
-            is.null(fit_result),
-            NA,
-            fit_result$asymptote))
-    }) %>%
+      tibble(total_co2 = ifelse(is.null(fit_result), NA, fit_result$asymptote))}) %>%
     ungroup()
   
   # COMBINE SUMMARIES
@@ -288,20 +260,25 @@ process_exp <- function(file_path){
       control_vals,
       by = "cycle") %>%
     mutate(delta_co2 = total_co2 - control_co2, # Baseline-corrected CO2
-           VCO2_ml_min = (flow * delta_co2) * 60, # Convert to mL/min from ppm
+           VCO2_ml_min = flow * (delta_co2 / 100), # Convert to mL/min from percent
            file = base_name, # Metadata
            temp = temp,
            stress = stress,
            date = date,
-           run = row_number())
+           line = case_when(cycle == 0 ~ 2, # match order to lines from machine
+                            cycle == 1 ~ 3,
+                            cycle == 2 ~ 5,
+                            cycle == 3 ~ 6,
+                            cycle == 4 ~ 7,
+                            cycle == 5 ~ 8, 
+                            TRUE      ~ NA_real_ )) # safety net – should never hit
   
   return(co2_summary) # Return summary
 }
 
+all_co2 <- map_dfr(files, process_exp) # PROCESS ALL FILES
 
-all_co2 <- map_dfr(files,process_exp) # PROCESS ALL FILES
-
-print(all_co2) # FINAL OUTPUT
+head(all_co2)
 
 write.csv(
   all_co2,
