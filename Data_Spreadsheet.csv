@@ -1,91 +1,91 @@
 CaptureDate,Species,TempStart,DissectionDate,ID,SVL,Weight,Disease,Parasites,Sex,SkinSwab,LeftGonads,RightGonads,Spleen,Temperature,VCO2,Cort,Location,Notes,Reproductive
-Feb 8 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH001,67.75,22.611,N,N,F,1,,,Y,24,8.03E-05,9.288,Duckpond,,
-Feb 9 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH002,44.05,5.524,N,N,,1,,,Y,24,2.29E-05,4.721,McGuire Center,,Gonads not visible
-Feb 11 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH003,50.6,6.356,N,N,F,1,,,Y,24,4.90E-05,5.112,NATL,,
-Mar 1 2026,L. sphenocephalus,,Mar 10 2026,KH004,44.38,6.626,N,N,M,1,0.0032,0.0031,Y,24,3.01E-05,8.482,NATL,,
-Mar 1 2026,O. septentrionalis,,Mar 9 2026,KH005,43.65,4.52,N,N,F,1,,,Y,14,8.19E-06,4.971,NATL,,
-Mar 1 2026,H. cinerea,,Mar 10 2026,KH006,38.46,4.239,N,N,M,1,,,Y,24,1.60E-05,15.205,NATL,,
-Mar 1 2026,H. cinerea,,Mar 10 2026,KH007,32.2,2.275,N,N,M,1,,,Y,24,2.55E-05,47.422,NATL,High CV,
-Mar 1 2026,O. septentrionalis,,Mar 9 2026,KH008,35.96,2.736,N,Nematodes,,1,,,Y,14,4.34E-06,5.769,NATL,,
-Mar 1 2026,H. cinerea,,Mar 9 2026,KH009,25.72,1.069,N,N,M,1,,,Y,14,2.18E-06,0.554,NATL,,Gonads not visible
-Mar 1 2026,H. cinerea,,Mar 13 2026,KH010,34.29,2.766,N,N,M,1,,,Y,14,8.43E-06,8.036,NATL,,
-Mar 8 2026,H. cinerea,,Mar 12 2026,KH011,28.6,1.266,N,N,F,1,,,Y,34,2.36E-05,0.944,NATL,,
-Mar 8 2026,O. septentrionalis,,Mar 12 2026,KH012,36.95,3.616,N,N,M,1,,,Y,34,3.43E-05,53.154,NATL,,
-Mar 8 2026,L. sphenocephalus,,Mar 12 2026,KH013,30.67,1.826,N,N,,1,,,Y,34,1.83E-05,6.435,NATL,,Gonads not visible
-Mar 8 2026,H. cinerea,,Mar 12 2026,KH014,45.73,4.988,N,N,F,1,,,Y,34,7.12E-05,18.939,NATL,High CV,
-Mar 8 2026,H. cinerea,,Mar 13 2026,KH015,37.95,2.982,N,N,M,1,,,Y,14,1.81E-05,21.636,NATL,Food in gut,
-Mar 8 2026,E. planirostris,,Mar 13 2026,KH016,18.7,0.532,N,N,,1,,,,14,2.85E-06,34.546,NATL,,
-Mar 8 2026,E. planirostris,,Mar 13 2026,KH017,14.84,0.41,N,N,,1,,,,14,2.24E-07,,NATL,,
+Feb 8 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH001,67.75,22.611,N,N,F,1,,,Y,24,1.31E-02,9.288,Duckpond,,
+Feb 9 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH002,44.05,5.524,N,N,,1,,,Y,24,3.71E-03,4.721,McGuire Center,High CV,Gonads not visible
+Feb 11 2026,O. septentrionalis,Feb 22 2026,Feb 24 2026,KH003,50.6,6.356,N,N,F,1,,,Y,24,7.96E-03,5.112,NATL,,
+Mar 1 2026,L. sphenocephalus,,Mar 10 2026,KH004,44.38,6.626,N,N,M,1,0.0032,0.0031,Y,24,4.89E-03,8.482,NATL,,
+Mar 1 2026,O. septentrionalis,,Mar 9 2026,KH005,43.65,4.52,N,N,F,1,,,Y,14,1.34E-03,4.971,NATL,,
+Mar 1 2026,H. cinerea,,Mar 10 2026,KH006,38.46,4.239,N,N,M,1,,,Y,24,2.60E-03,15.205,NATL,,
+Mar 1 2026,H. cinerea,,Mar 10 2026,KH007,32.2,2.275,N,N,M,1,,,Y,24,4.14E-03,47.422,NATL,High CV,
+Mar 1 2026,O. septentrionalis,,Mar 9 2026,KH008,35.96,2.736,N,Nematodes,,1,,,Y,14,7.12E-04,5.769,NATL,High CV,
+Mar 1 2026,H. cinerea,,Mar 9 2026,KH009,25.72,1.069,N,N,M,1,,,Y,14,3.57E-04,0.554,NATL,,Gonads not visible
+Mar 1 2026,H. cinerea,,Mar 13 2026,KH010,34.29,2.766,N,N,M,1,,,Y,14,1.36E-03,8.036,NATL,High CV,
+Mar 8 2026,H. cinerea,,Mar 12 2026,KH011,28.6,1.266,N,N,F,1,,,Y,34,3.82E-03,0.944,NATL,Single well failure,
+Mar 8 2026,O. septentrionalis,,Mar 12 2026,KH012,36.95,3.616,N,N,M,1,,,Y,34,5.55E-03,53.154,NATL,,
+Mar 8 2026,L. sphenocephalus,,Mar 12 2026,KH013,30.67,1.826,N,N,,1,,,Y,34,2.95E-03,6.435,NATL,High CV,Gonads not visible
+Mar 8 2026,H. cinerea,,Mar 12 2026,KH014,45.73,4.988,N,N,F,1,,,Y,34,1.15E-02,18.939,NATL,High CV,
+Mar 8 2026,H. cinerea,,Mar 13 2026,KH015,37.95,2.982,N,N,M,1,,,Y,14,2.92E-03,21.636,NATL,Food in gut,
+Mar 8 2026,E. planirostris,,Mar 13 2026,KH016,18.7,0.532,N,N,,1,,,,14,4.53E-04,34.546,NATL,,
+Mar 8 2026,E. planirostris,,Mar 13 2026,KH017,14.84,0.41,N,N,,1,,,,14,2.45E-05,,NATL,,
 Apr 21 2026,O. septentrionalis,,May 1 2026,KH018,62.121,18.764,N,N,M,0,,,,14,,17.986,Orange park,Respiration file corrupted,
-Apr 26 2026,E. planirostris,,May 2 2026,KH019,24.64,1.133,N,N,F,1,,,,34,1.59E-05,,NATL,,
-Apr 26 2026,O. septentrionalis,,May 2 2026,KH020,41.02,3.802,N,N,,1,,,Y,34,3.34E-05,31.917,NATL,,Gonads not visible
-Apr 26 2026,H. cinerea,,May 2 2026,KH021,41.07,3.933,N,N,F,1,,,Y,34,4.47E-05,66.848,NATL,High CV,
-Apr 26 2026,E. planirostris,,May 2 2026,KH022,20.18,0.895,N,N,,1,,,Y,34,1.04E-05,24.599,NATL,,Gonads not visible
-Apr 26 2026,H. cinerea,,May 2 2026,KH023,39.42,3.199,N,N,F,1,,,Y,34,3.41E-05,127.718,NATL,,Gravid
-Apr 26 2026,O. septentrionalis,,May 2 2026,KH024,63.16,17.77,N,N,F,1,,,Y,34,0.000182125,,NATL,High CV,
-Apr 29 2026,H. cinerea,,May 8 2026,KH025,43.69,4.066,N,N,F,1,,,Y,14,6.53E-06,148.904,NATL,,Gravid
-Apr 29 2026,H. cinerea,,May 8 2026,KH026,44.1,3.263,N,N,M,1,,,Y,14,0.000167483,1.7,NATL,,
+Apr 26 2026,E. planirostris,,May 2 2026,KH019,24.64,1.133,N,N,F,1,,,,34,2.61E-03,,NATL,,
+Apr 26 2026,O. septentrionalis,,May 2 2026,KH020,41.02,3.802,N,N,,1,,,Y,34,5.49E-03,31.917,NATL,,Gonads not visible
+Apr 26 2026,H. cinerea,,May 2 2026,KH021,41.07,3.933,N,N,F,1,,,Y,34,7.35E-03,66.848,NATL,,
+Apr 26 2026,E. planirostris,,May 2 2026,KH022,20.18,0.895,N,N,,1,,,Y,34,1.71E-03,24.599,NATL,,Gonads not visible
+Apr 26 2026,H. cinerea,,May 2 2026,KH023,39.42,3.199,N,N,F,1,,,Y,34,5.61E-03,127.718,NATL,,Gravid
+Apr 26 2026,O. septentrionalis,,May 2 2026,KH024,63.16,17.77,N,N,F,1,,,Y,34,0.029993172,148.904,NATL,High CV,
+Apr 29 2026,H. cinerea,,May 8 2026,KH025,43.69,4.066,N,N,F,1,,,Y,14,1.39E-03,,NATL,Double well failure,Gravid
+Apr 29 2026,H. cinerea,,May 8 2026,KH026,44.1,3.263,N,N,M,1,,,Y,14,0.001064731,,NATL,Single well failure,
 May 3 2026,E. planirostris,,,KH027,20.82,0.834,,,,1,,,Y,,,,NATL,Dead before dissection,
-May 3 2026,H. cinerea,,May 9 2026,KH028,48.66,6.061,N,N,M,1,,,Y,34,6.01305E-05,1.452,NATL,,
-May 3 2026,H. cinerea,,May 9 2026,KH029,47.69,7.214,N,N,F,1,,,Y,34,3.41E-05,9.563,NATL,,Gravid
-May 3 2026,H. cinerea,,May 9 2026,KH030,37.21,3.005,N,N,F,1,,,Y,34,6.74E-05,6.369,NATL,,
-May 3 2026,H. cinerea,,May 9 2026,KH031,45.24,7.252,N,N,M,1,,,Y,34,3.49E-05,3.176,NATL,,
-May 3 2026,H. cinerea,,May 9 2026,KH032,39.14,4.555,N,N,M,1,,,Y,34,2.01E-04,25.035,NATL,,
-May 14 2026,E. planirostris,,May 19 2026,KH033,21.73,1.141,N,N,F,,,,Y,24,4.76E-06,41.246,NATL,,Gravid
-May 14 2026,E. planirostris,,May 19 2026,KH034,23.73,1.095,N,N,F,,,,Y,24,8.46E-06,34.338,NATL,,
-May 14 2026,H. cinerea,,May 19 2026,KH035,45.78,6.445,N,N,M,,,,Y,24,8.52E-05,,NATL,,
-May 14 2026,H. cinerea,,May 21 2026,KH036,39.64,3.497,N,N,M,,,,Y,14,1.17677E-05,3.273,NATL,,
-May 14 2026,E. planirostris,,May 21 2026,KH037,23.42,1.002,N,N,F,,,,,14,5.17302E-06,,NATL,,Gravid
-May 14 2026,E. planirostris,,May 19 2026,KH038,19.84,1.205,N,N,F,,,,Y,24,5.17E-06,11.88,NATL,,Gravid
-May 14 2026,H. cinerea,,May 19 2026,KH039,46.91,5.872,N,N,M,,,,Y,24,2.49E-05,8.073,NATL,,
-May 14 2026,H. cinerea,,May 19 2026,KH040,46.51,5.634,N,N,M,,,,,24,4.01E-05,3.67,NATL,High CV,
-May 15 2026,L. sphenocephalus,,May 20 2026,KH041,66.66,21.873,N,N,F,,,,Y,24,0.000127124,20.741,Pomona Park,,Gravid
-May 15 2026,L. sphenocephalus,,May 21 2026,KH042,65.68,21.982,N,N,F,,,,Y,14,9.54753E-05,5.193,Pomona Park,,Gravid
-May 15 2026,L. sphenocephalus,,May 20 2026,KH043,24.55,1.44,N,N,,,,,Y,24,7.13E-06,,Pomona Park,,
-May 15 2026,L. sphenocephalus,,May 20 2026,KH044,24.16,1.172,N,N,,,,,,24,6.43E-06,19.518,Pomona Park,,
-May 15 2026,L. sphenocephalus,,May 20 2026,KH045,26.85,1.337,N,N,,,,,Y,24,1.99E-05,6.311,Pomona Park,,
-May 15 2026,L. sphenocephalus,,May 20 2026,KH046,29.87,2.066,N,N,,,,,,24,1.60E-05,5.692,Pomona Park,,
-May 15 2026,L. sphenocephalus,,May 21 2026,KH047,27.06,1.524,N,N,,,,,Y,14,6.02383E-06,4.951,Pomona Park,,
-May 18 2026,E. planirostris,,May 24 2026,KH048,22.51,0.879,N,N,F,,,,Y,24,4.72403E-06,,NATL,,Gravid
-May 18 2027,E. planirostris,,May 24 2026,KH049,18.62,0.604,N,N,,,,,,24,2.72105E-06,11.63,NATL,,
-May 18 2028,E. planirostris,,May 24 2026,KH050,24.01,0.902,N,N,F,,,,Y,24,6.24833E-06,,NATL,,Gravid
-May 18 2029,E. planirostris,,May 24 2026,KH051,22.98,1.211,N,N,F,,,,Y,24,5.37434E-06,71.428,NATL,,Gravid
-May 18 2030,E. planirostris,,May 25 2026,KH052,22.49,0.936,N,N,F,,,,Y,14,1.21169E-06,50.005,NATL,,Gravid
-May 18 2031,H. cinerea,,May 24 2026,KH053,28.27,1.286,N,N,,,,,Y,24,1.07264E-05,8.754,NATL,,
-May 18 2032,H. cinerea,,May 24 2026,KH054,43.42,5.031,N,N,F,,,,,24,2.64076E-05,36.373,NATL,,Gravid
-May 20 2026,L. sphenocephalus,,May 25 2026,KH055,65.05,21.965,N,N,M,,,,Y,14,3.69825E-05,12.881,Pomona Park,,
-May 20 2026,L. sphenocephalus,,May 25 2026,KH056,72.26,28.326,N,N,F,,,,Y,14,0.000256649,9.444,Pomona Park,,Gravid
-May 20 2026,L. sphenocephalus,,May 25 2026,KH057,66.02,26.524,N,N,F,,,,Y,14,0.000232211,4.228,Pomona Park,,Gravid
-May 20 2026,L. sphenocephalus,,May 25 2026,KH058,66.3,18.995,N,N,F,,,,Y,14,0.000163483,4.15,Pomona Park,,
+May 3 2026,H. cinerea,,May 9 2026,KH028,48.66,6.061,N,N,M,1,,,Y,34,,1.452,NATL,Single well failure,
+May 3 2026,H. cinerea,,May 9 2026,KH029,47.69,7.214,N,N,F,1,,,Y,34,9.89E-03,9.563,NATL,,Gravid
+May 3 2026,H. cinerea,,May 9 2026,KH030,37.21,3.005,N,N,F,1,,,Y,34,5.61E-03,6.369,NATL,High CV,
+May 3 2026,H. cinerea,,May 9 2026,KH031,45.24,7.252,N,N,M,1,,,Y,34,1.11E-02,3.176,NATL,Single well failure,
+May 3 2026,H. cinerea,,May 9 2026,KH032,39.14,4.555,N,N,M,1,,,Y,34,5.73E-03,25.035,NATL,,
+May 14 2026,E. planirostris,,May 19 2026,KH033,21.73,1.141,N,N,F,,,,Y,24,7.82E-04,41.246,NATL,,Gravid
+May 14 2026,E. planirostris,,May 19 2026,KH034,23.73,1.095,N,N,F,,,,Y,24,1.39E-03,34.338,NATL,,
+May 14 2026,H. cinerea,,May 19 2026,KH035,45.78,6.445,N,N,M,,,,Y,24,1.40E-02,,NATL,,
+May 14 2026,H. cinerea,,May 21 2026,KH036,39.64,3.497,N,N,M,,,,Y,14,1.93E-03,3.273,NATL,High CV,
+May 14 2026,E. planirostris,,May 21 2026,KH037,23.42,1.002,N,N,F,,,,,14,8.49E-04,,NATL,,Gravid
+May 14 2026,E. planirostris,,May 19 2026,KH038,19.84,1.205,N,N,F,,,,Y,24,8.49E-04,11.88,NATL,,Gravid
+May 14 2026,H. cinerea,,May 19 2026,KH039,46.91,5.872,N,N,M,,,,Y,24,4.09E-03,8.073,NATL,Single well failure,
+May 14 2026,H. cinerea,,May 19 2026,KH040,46.51,5.634,N,N,M,,,,,24,6.58E-03,3.67,NATL,Single well failure,
+May 15 2026,L. sphenocephalus,,May 20 2026,KH041,66.66,21.873,N,N,F,,,,Y,24,0.001170711,20.741,Pomona Park,,Gravid
+May 15 2026,L. sphenocephalus,,May 21 2026,KH042,65.68,21.982,N,N,F,,,,Y,14,1.57E-02,5.193,Pomona Park,Single well failure,Gravid
+May 15 2026,L. sphenocephalus,,May 20 2026,KH043,24.55,1.44,N,N,,,,,Y,24,1.05E-03,,Pomona Park,,
+May 15 2026,L. sphenocephalus,,May 20 2026,KH044,24.16,1.172,N,N,,,,,,24,3.27E-03,19.518,Pomona Park,,
+May 15 2026,L. sphenocephalus,,May 20 2026,KH045,26.85,1.337,N,N,,,,,Y,24,2.62E-03,6.311,Pomona Park,,
+May 15 2026,L. sphenocephalus,,May 20 2026,KH046,29.87,2.066,N,N,,,,,,24,5.51E-02,5.692,Pomona Park,,
+May 15 2026,L. sphenocephalus,,May 21 2026,KH047,27.06,1.524,N,N,,,,,Y,14,9.88E-04,4.951,Pomona Park,High CV,
+May 18 2026,E. planirostris,,May 24 2026,KH048,22.51,0.879,N,N,F,,,,Y,24,7.77E-04,,NATL,,Gravid
+May 18 2027,E. planirostris,,May 24 2026,KH049,18.62,0.604,N,N,,,,,,24,4.45E-04,11.63,NATL,,
+May 18 2028,E. planirostris,,May 24 2026,KH050,24.01,0.902,N,N,F,,,,Y,24,1.02E-03,,NATL,,Gravid
+May 18 2029,E. planirostris,,May 24 2026,KH051,22.98,1.211,N,N,F,,,,Y,24,8.82E-04,71.428,NATL,,Gravid
+May 18 2030,E. planirostris,,May 25 2026,KH052,22.49,0.936,N,N,F,,,,Y,14,2.02E-04,50.005,NATL,,Gravid
+May 18 2031,H. cinerea,,May 24 2026,KH053,28.27,1.286,N,N,,,,,Y,24,1.76E-03,8.754,NATL,,
+May 18 2032,H. cinerea,,May 24 2026,KH054,43.42,5.031,N,N,F,,,,,24,4.33E-03,36.373,NATL,,Gravid
+May 20 2026,L. sphenocephalus,,May 25 2026,KH055,65.05,21.965,N,N,M,,,,Y,14,6.16E-03,12.881,Pomona Park,High CV,
+May 20 2026,L. sphenocephalus,,May 25 2026,KH056,72.26,28.326,N,N,F,,,,Y,14,0.042264964,9.444,Pomona Park,,Gravid
+May 20 2026,L. sphenocephalus,,May 25 2026,KH057,66.02,26.524,N,N,F,,,,Y,14,0.038745935,4.228,Pomona Park,,Gravid
+May 20 2026,L. sphenocephalus,,May 25 2026,KH058,66.3,18.995,N,N,F,,,,Y,14,0.02712265,4.15,Pomona Park,,
 May 23 2026,L. sphenocephalus,,,KH059,56.08,13.086,N,N,,,,,,,,12.705,Pomona Park,Dead before dissection,
-May 23 2026,L. sphenocephalus,,May 28 2026,KH060,66.59,21.631,N,N,F,,,,Y,34,0.000247431,8.302,Pomona Park,,Gravid
-May 23 2026,L. sphenocephalus,,May 28 2026,KH061,60.28,21.359,N,N,F,,,,Y,34,0.000491576,10.223,Pomona Park,,Gravid
-May 23 2026,L. sphenocephalus,,May 28 2026,KH062,57.85,14.609,N,N,F,,,,Y,34,0.000127322,6.218,Pomona Park,,Gravid
-Aug 5 2026,H. cinerea,,Aug 11 2026,KH063,43.96,8.533,N,N,M,,,,Y,14,1.45016E-05,,NATL,,
-Aug 5 2026,H. cinerea,,Aug 11 2026,KH064,38.4,6.119,N,N,M,,,,Y,14,6.04841E-06,5.952,NATL,,
-Aug 5 2026,H. cinerea,,Aug 11 2026,KH065,39.58,6.462,N,N,M,,,,Y,14,4.96329E-06,15.064,NATL,,
-Aug 5 2026,H. cinerea,,Aug 11 2026,KH066,39.78,6.641,N,N,M,,,,Y,14,7.77469E-06,6.458,NATL,,
-Aug 6 2026,O. septentrionalis,,Aug 12 2026,KH067,,,N,N,,,,,Y,34,34cNS-Aug12_0001,23.771,NATL,,
-Aug 6 2026,H. cinerea,,Aug 12 2026,KH068,,,N,N,M,,,,Y,34,34cNS-Aug12_0001,20.055,NATL,,
-Aug 6 2026,H. cinerea,,Aug 12 2026,KH069,,,N,N,F,,,,Y,34,34cNS-Aug12_0001,4.153,NATL,,
-Aug 6 2026,H. cinerea,,Aug 12 2026,KH070,,,N,Nematodes,M,,,,Y,34,34cNS-Aug12_0001,,NATL,,
-Aug 6 2026,H. cinerea,,Aug 12 2026,KH071,,,N,N,F,,,,Y,34,34cNS-Aug12_0001,,NATL,,
-Aug 6 2026,H. cinerea,,Aug 12 2026,KH072,,,N,N,,,,,Y,34,34cNS-Aug12_0001,,NATL,,
-Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH073,,,,,,,,,,24,,15.43,NATL,,
-Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH074,,,,,,,,,,14,,8.472,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH075,,,,,,,,,,14,,16.709,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH076,,,,,,,,,,14,,,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH077,,,,,,,,,,24,,12.964,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH078,,,,,,,,,,24,,47.85,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH079,,,,,,,,,,24,,30.353,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH080,,,,,,,,,,24,,11.998,NATL,,
-Aug 12 2026,L. sphenocephalus,,Aug 15 2026,KH081,,,,,,,,,,24,,10.361,NATL,,
-Aug 12 2026,H. cinerea,,Aug 15 2026,KH082,,,,,,,,,,14,,3.38,NATL,,
-Aug 12 2026,L. sphenocephalus,,Aug 15 2026,KH083,,,,,,,,,,14,,5.956,NATL,,
-Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH084,,,,,,,,,,14,,,NATL,,
-Aug 12 2026,H. cinerea,,Aug 16 2026,KH085,,,,,,,,,,34,,2.498,NATL,,
-Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH086,,,,,,,,,,34,,,Pomona Park,,
-Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH087,,,,,,,,,,34,,18.449,Pomona Park,,
-Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH088,,,,,,,,,,34,,67.093,Pomona Park,,
-Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH089,,,,,,,,,,34,,,Pomona Park,,
-Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH090,,,,,,,,,,34,,22.003,Pomona Park,,
+May 23 2026,L. sphenocephalus,,May 28 2026,KH060,66.59,21.631,N,N,F,,,,Y,34,0.040709591,8.302,Pomona Park,,Gravid
+May 23 2026,L. sphenocephalus,,May 28 2026,KH061,60.28,21.359,N,N,F,,,,Y,34,0.080946339,10.223,Pomona Park,,Gravid
+May 23 2026,L. sphenocephalus,,May 28 2026,KH062,57.85,14.609,N,N,F,,,,Y,34,0.020957629,6.218,Pomona Park,,Gravid
+Aug 5 2026,H. cinerea,,Aug 11 2026,KH063,43.96,8.533,N,N,M,,,,Y,14,1.63E-03,,NATL,,
+Aug 5 2026,H. cinerea,,Aug 11 2026,KH064,38.4,6.119,N,N,M,,,,Y,14,1.01E-03,5.952,NATL,High CV,
+Aug 5 2026,H. cinerea,,Aug 11 2026,KH065,39.58,6.462,N,N,M,,,,Y,14,8.30E-04,15.064,NATL,,
+Aug 5 2026,H. cinerea,,Aug 11 2026,KH066,39.78,6.641,N,N,M,,,,Y,14,1.30E-03,6.458,NATL,,
+Aug 6 2026,O. septentrionalis,,Aug 12 2026,KH067,26.58,1.206,N,N,,,,,Y,34,0.001662827,23.771,NATL,,
+Aug 6 2026,H. cinerea,,Aug 12 2026,KH068,43.38,4.325,N,N,M,,,,Y,34,0.006811286,20.055,NATL,,
+Aug 6 2026,H. cinerea,,Aug 12 2026,KH069,37.76,3.108,N,N,F,,,,Y,34,,4.153,NATL,High CV,Gravid
+Aug 6 2026,H. cinerea,,Aug 12 2026,KH070,46.15,4.725,N,Nematodes,M,,,,Y,34,0.005992333,,NATL,,
+Aug 6 2026,H. cinerea,,Aug 12 2026,KH071,44.32,4.623,N,N,F,,,,Y,34,0.005708189,,NATL,,Gravid
+Aug 6 2026,H. cinerea,,Aug 12 2026,KH072,35.44,2.148,N,N,,,,,Y,34,0.007359857,,NATL,,Gravid
+Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH073,37.94,2.624,N,N,F,,,,,24,0.004766524,15.43,NATL,,
+Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH074,42.3,3.757,N,N,F,,,,,14,0.005471931,8.472,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH075,42.8,3.887,N,N,M,,,,,14,0.004134406,16.709,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH076,27.62,0.921,N,N,,,,,,14,,,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH077,46.96,7.108,N,N,F,,,,,24,0.036782435,12.964,NATL,,Gravid
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH078,33.11,1.244,N,N,,,,,,24,0.004821262,47.85,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH079,29.91,1.25,N,N,,,,,,24,0.005313775,30.353,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH080,42.5,3.612,N,N,M,,,,,24,0.00830193,11.998,NATL,High CV,
+Aug 12 2026,L. sphenocephalus,,Aug 15 2026,KH081,32.04,2.562,N,N,,,,,,24,0.004959727,10.361,NATL,,
+Aug 12 2026,H. cinerea,,Aug 15 2026,KH082,38.73,2.998,N,N,M,,,,,14,0.002082523,3.38,NATL,,
+Aug 12 2026,L. sphenocephalus,,Aug 15 2026,KH083,54.61,11.253,N,N,M,,,,,14,0.012222804,5.956,NATL,,
+Aug 12 2026,O. septentrionalis,,Aug 15 2026,KH084,30.91,1.637,N,N,M,,,,,14,0.00395959,,NATL,,
+Aug 12 2026,H. cinerea,,Aug 16 2026,KH085,36.26,2.667,N,N,M,,,,,34,0.006731787,2.498,NATL,,
+Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH086,52.29,8.728,N,N,F,,,,,34,0.039006681,,Pomona Park,,Gravid
+Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH087,47.14,16.431,N,N,F,,,,,34,0.047377774,18.449,Pomona Park,,
+Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH088,56.89,10.992,N,N,M,,,,,34,0.127471872,67.093,Pomona Park,,
+Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH089,61.12,15.652,N,N,M,,,,,34,0.111195483,,Pomona Park,,
+Aug 13 2026,L. sphenocephalus,,Aug 16 2026,KH090,69.18,24.416,N,N,F,,,,,34,0.149125415,22.003,Pomona Park,,Gravid
