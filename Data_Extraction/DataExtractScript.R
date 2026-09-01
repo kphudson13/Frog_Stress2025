@@ -7,7 +7,6 @@
 # Live laugh love
 # =========================================================
 
-
 # Setup -------------------------------------------------------------------
 
 # devtools::install_github("daniel1noble/metabR",
@@ -20,21 +19,21 @@ library(minpack.lm)
 
 rm(list = ls()) # Clear environment
 
-# Create directories ------------------------------------------------------
-
 dir.create("Data_Extraction/Raw_Figures",
            showWarnings = FALSE,
-           recursive = TRUE)
+           recursive = TRUE) # Create directory for figures
+
+files <- list.files(path = "Data_Extraction",
+                    pattern = "\\.exp$",
+                    full.names = TRUE) # List all .exp files 
+
+filetemp <- read.exp("Data_Extraction/14cNS-Mar13_0001.exp")
 
 # Experimental settings ---------------------------------------------------
+
 flow <- 50                 # flow rate (mL/min)
 discard <- 40              # seconds discarded after switching
 cycle_length <- 361 + 601  # total cycle duration (sec)
-
-# List .exp files ---------------------------------------------------------
-files <- list.files(path = "Data_Extraction",
-                    pattern = "\\.exp$",
-                    full.names = TRUE)
 
 # FUNCTION: Fit asymptotic exponential model ------------------------------
 #
@@ -81,19 +80,16 @@ fit_asymptote <- function(df){
 
 process_exp <- function(file_path){
   
-  # File metadata
-  file_name <- basename(file_path)
-  base_name <- tools::file_path_sans_ext(file_name)
+  base_name <- tools::file_path_sans_ext(basename(file_path)) # save the title but not full path
+
+  meta <- str_match(base_name, "^(\\d+c)(NS|S)-([A-Za-z0-9]+)_") # save title as metadata
   
-  meta <- str_match(base_name,
-                    "^(\\d+c)(NS|S)-([A-Za-z0-9]+)_") # whatever dude
-  
-  temp    <- meta[,2]
+  temp    <- str_remove(meta[,2], "c") # remove the c
   stress  <- meta[,3]
   date    <- meta[,4]
-  run_num <- str_extract(base_name, "\\d+$")
+  run_num <- str_extract(base_name, "\\d+$") # save individual parts from title
   
-  fig_name <- paste(temp, stress, date, run_num, sep = "_") # name figure
+  fig_name <- paste(temp, stress, date, run_num, sep = "_") # name figure based off metadata
   
   # Read Sable Systems file
   sableDat <- read.exp(file_path) %>%
@@ -260,18 +256,18 @@ process_exp <- function(file_path){
       control_vals,
       by = "cycle") %>%
     mutate(delta_co2 = total_co2 - control_co2, # Baseline-corrected CO2
-           VCO2_ml_min = flow * (delta_co2 / 100), # Convert to mL/min from percent
+           VCO2_ml_min = flow * delta_co2 / 100, # Convert to mL/min (sable unit is percent)
            file = base_name, # Metadata
            temp = temp,
            stress = stress,
            date = date,
            line = case_when(cycle == 0 ~ 2, # match order to lines from machine
-                            cycle == 1 ~ 3,
+                            cycle == 1 ~ 3, # this only matters for another column in the printout
                             cycle == 2 ~ 5,
                             cycle == 3 ~ 6,
                             cycle == 4 ~ 7,
                             cycle == 5 ~ 8, 
-                            TRUE      ~ NA_real_ )) # safety net – should never hit
+                            TRUE       ~ NA_real_ )) # safety net – should never hit
   
   return(co2_summary) # Return summary
 }
