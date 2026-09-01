@@ -13,7 +13,7 @@ rm(list=ls()) # Clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2),
-         mW = VCO2 * 21.1 / 60 * 100, # convert vco2 to watts
+         mW = VCO2 * 21.1 / 60 * 1000, # energetic conversion(jouls per ml), min to sec, and Watts to mW
          Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other"),
          Sex = ifelse(is.na(Sex) | Sex == "", "Other", Sex), 
          ReproSex = case_when(
