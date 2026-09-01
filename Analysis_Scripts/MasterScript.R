@@ -15,10 +15,11 @@ library(rsq) # for partial r2
 rm(list=ls()) # Clear environment
 
 Data <- read.csv("Data_Spreadsheet.csv") %>%
-  mutate(VCO2 = as.numeric(VCO2),
-         VCO2 = ifelse(VCO2 <= 0, NA, VCO2), # remove NAS
-         mW = VCO2 * 21.1 / 60 * 100,
-         Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other")) 
+  mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2),
+         mW = VCO2 * 21.1 / 60 * 1000, # energetic conversion(jouls per ml), min to sec, and Watts to mW
+         Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other"),
+         Sex = ifelse(is.na(Sex) | Sex == "", "Other", Sex),
+         MSMR = mW/Weight) 
 
 dir.create("Figures", showWarnings = FALSE) # create directory for figures
 
@@ -26,9 +27,10 @@ dir.create("Figures", showWarnings = FALSE) # create directory for figures
 
 MSMRWeightTemp_Unfiltered <- lm(data = Data, log(mW/Weight) ~ log(Weight) + Temperature + Species) 
 CortMSMR_Unfiltered <- lm(data = Data %>%
-                            filter(Notes != "High CV" & Notes != "Single well failure") , log(Cort) ~ log(mW/Weight)) # filter out high CV cort points 
+                            filter(Notes != "High CV" ), log(Cort) ~ log(mW/Weight) + Species) # filter out high CV cort points 
 CortWeightTemp_Unfiltered <- lm(data = Data %>%
-                                  filter(Notes != "High CV" & Notes != "Single well failure") , log(Cort) ~ log(Weight) + Temperature + Reproductive)
+                                  filter(Notes != "High CV" ), log(Cort) ~ log(Weight) + Temperature + Species)
+# & Notes != "Single well failure"
 
 # Cook's Distance Function ---------------------------------------------------
 
@@ -61,17 +63,17 @@ CDist_fun(MSMRWeightTemp_Unfiltered,
 
 summary(MSMRWeightTemp_Model)
 
-CDist_fun(CortMSMR_Unfiltered,
-          log(Cort) ~ log(mW/Weight),
-          Data)
-
-summary(CortMSMR_Model)
-
 CDist_fun(CortWeightTemp_Unfiltered,
-          log(Cort) ~ log(Weight) + Temperature + Reproductive,
+          log(Cort) ~ log(Weight) + Temperature + Species,
           Data)
 
 summary(CortWeightTemp_Model)
+
+CDist_fun(CortMSMR_Unfiltered,
+          log(Cort) ~ log(mW/Weight) + Species,
+          Data)
+
+summary(CortMSMR_Model)
 
 # Plots -------------------------------------------------------------------
 
@@ -128,27 +130,6 @@ MSMRWeightTemp_Data$MSMR_NormWeight <- log(MSMRWeightTemp_Data$mW/MSMRWeightTemp
 
 ggsave(filename = "Figures/MSMRTemp_Plot.png", width=90, height=90, units="mm") #save a picture
 
-(CortMSMR_Plot <- ggplot(CortMSMR_Data, aes(x=log(mW/Weight), y = log(Cort))) +
-    geom_point(aes(colour = Species)) +
-    geom_abline(intercept = coefficients(summary(CortMSMR_Model))[1,1],
-                slope = coefficients(summary(CortMSMR_Model))[2,1]) + 
-    theme_classic() +
-    theme1 +
-    annotate("text", size = 3.5, 
-             x = mean(log(CortMSMR_Data$mW/CortMSMR_Data$Weight), na.rm = T)*1.5, # gets mad without na.rm
-             y = mean(log(CortMSMR_Data$Cort), na.rm = T)*2,
-             label = list(bquote(atop(y==~ .(round(coefficients(summary(CortMSMR_Model))[1,1], 2))
-                                      ~x^.(round(coefficients(summary(CortMSMR_Model))[2,1], 2)),
-                                      ~R^2 ==~ .(round(summary(CortMSMR_Model)$r.squared, 2))))),
-             parse = TRUE) +
-    labs(x = "MSMR (ln(mW/g))",
-         y = "Cort (ln(ng/ml))") +
-  scale_x_continuous(limits = c(-7, -0)) +
-  scale_y_continuous(limits = c(-1, 7))
-)
-
-ggsave(filename = "Figures/CortMSMR_Plot.png", width=90, height=90, units="mm") #save a picture
-
 # normalized points for plotting
 CortWeightTemp_Data$Cort_NormTemp <- log(CortWeightTemp_Data$Cort) - CortWeightTemp_Model[["coefficients"]][["Temperature"]]*CortWeightTemp_Data$Temperature
 
@@ -192,6 +173,27 @@ CortWeightTemp_Data$Cort_NormWeight <- log(CortWeightTemp_Data$Cort) - CortWeigh
 )
 
 ggsave(filename = "Figures/CortTemp_Plot.png", width=90, height=90, units="mm") #save a picture
+
+(CortMSMR_Plot <- ggplot(CortMSMR_Data, aes(x=log(mW/Weight), y = log(Cort))) +
+    geom_point(aes(colour = Species)) +
+    geom_abline(intercept = coefficients(summary(CortMSMR_Model))[1,1],
+                slope = coefficients(summary(CortMSMR_Model))[2,1]) + 
+    theme_classic() +
+    theme1 +
+    annotate("text", size = 3.5, 
+             x = mean(log(CortMSMR_Data$mW/CortMSMR_Data$Weight), na.rm = T)*1.5, # gets mad without na.rm
+             y = mean(log(CortMSMR_Data$Cort), na.rm = T)*2,
+             label = list(bquote(atop(y==~ .(round(coefficients(summary(CortMSMR_Model))[1,1], 2))
+                                      ~x^.(round(coefficients(summary(CortMSMR_Model))[2,1], 2)),
+                                      ~R^2 ==~ .(round(summary(CortMSMR_Model)$r.squared, 2))))),
+             parse = TRUE) +
+    labs(x = "MSMR (ln(mW/g))",
+         y = "Cort (ln(ng/ml))") +
+    scale_x_continuous(limits = c(-7, -0)) +
+    scale_y_continuous(limits = c(-1, 7))
+)
+
+ggsave(filename = "Figures/CortMSMR_Plot.png", width=90, height=90, units="mm") #save a picture
 
 # Stats Table -------------------------------------------------------------
 
