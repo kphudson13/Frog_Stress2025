@@ -11,34 +11,9 @@
 # Raw Models ------------------------------------------------------------------
 
 MSMRWeightTemp_Unfiltered <- lm(data = Data, log(MSMR) ~ log(Weight) + Temperature + Species) 
-CortMSMR_Unfiltered <- lm(data = Data %>%
-                            filter(Notes != "High CV" ), log(Cort) ~ log(MSMR) + Species) # filter out high CV cort points 
-CortWeightTemp_Unfiltered <- lm(data = Data %>%
-                                  filter(Notes != "High CV" ), log(Cort) ~ log(Weight) + Temperature + Species)
+CortMSMR_Unfiltered <- lm(data = Data, log(Cort) ~ log(MSMR) + Species) # filter out high CV cort points 
+CortWeightTemp_Unfiltered <- lm(data = Data, log(Cort) ~ log(Weight) + Temperature + Species)
 # & Notes != "Single well failure"
-
-# Cook's Distance Function ---------------------------------------------------
-
-CDist_fun <- function(mod, formula, data) {
-  CD <- cooks.distance(mod)
-  keep <- CD <= 4 / nobs(mod) 
-  model_rows <- as.integer(names(residuals(mod)))
-  model_data <- data[model_rows, , drop = FALSE]
-  filtered_data <- model_data[keep, , drop = FALSE]
-  
-  model_name <- deparse(substitute(mod))
-  obj_name <- sub("_Unfiltered$", "", model_name)
-  data_name <- paste0(obj_name, "_Data")
-  
-  assign(data_name, filtered_data, envir = .GlobalEnv) # Save filtered data
-  
-  # do.call forces the data argument to resolve to the actual named global object
-  filtered_model <- do.call(lm, list(formula = formula, 
-                                     data = as.name(data_name)),
-                            envir = .GlobalEnv)
-  
-  assign(paste0(obj_name, "_Model"), filtered_model, envir = .GlobalEnv)
-}
 
 # Run Cook's distance filtering -----------------------------------------------
 
@@ -89,7 +64,7 @@ MSMRWeightTemp_Data$MSMR_NormTemp <- log(MSMRWeightTemp_Data$MSMR) - MSMRWeightT
     scale_y_continuous(limits = c(-5, 0))
 ) 
 
-ggsave(filename = paste("Figures/", directory, "/MSMRWeight_Plot.png.png",sep = ""), 
+ggsave(filename = paste("Figures/", directory, "/MSMRWeight_Plot.png", sep = ""), 
        width=90, height=90, units="mm") #save a picture
 
 # normalized points for plotting
@@ -114,7 +89,8 @@ MSMRWeightTemp_Data$MSMR_NormWeight <- log(MSMRWeightTemp_Data$MSMR) - MSMRWeigh
     scale_y_continuous(limits = c(-4, 0))
 )
 
-ggsave(filename = "Figures/MSMRTemp_Plot.png", width=90, height=90, units="mm") #save a picture
+ggsave(filename = paste("Figures/", directory, "/MSMRTemp_Plot.png", sep = ""), 
+                        width=90, height=90, units="mm") #save a picture
 
 # normalized points for plotting
 CortWeightTemp_Data$Cort_NormTemp <- log(CortWeightTemp_Data$Cort) - CortWeightTemp_Model[["coefficients"]][["Temperature"]]*CortWeightTemp_Data$Temperature
@@ -136,7 +112,8 @@ CortWeightTemp_Data$Cort_NormTemp <- log(CortWeightTemp_Data$Cort) - CortWeightT
   scale_y_continuous(limits = c(-2, 6))
 )
 
-ggsave(filename = "Figures/CortWeight_Plot.png", width=90, height=90, units="mm") #save a picture
+ggsave(filename = paste("Figures/", directory, "/CortWeight_Plot.png", sep = ""), 
+                        width=90, height=90, units="mm") #save a picture
 
 # normalized points for plotting
 CortWeightTemp_Data$Cort_NormWeight <- log(CortWeightTemp_Data$Cort) - CortWeightTemp_Model[["coefficients"]][["log(Weight)"]]*log(CortWeightTemp_Data$Weight)
@@ -158,7 +135,8 @@ CortWeightTemp_Data$Cort_NormWeight <- log(CortWeightTemp_Data$Cort) - CortWeigh
   scale_y_continuous(limits = c(-2, 6))
 )
 
-ggsave(filename = "Figures/CortTemp_Plot.png", width=90, height=90, units="mm") #save a picture
+ggsave(filename = paste("Figures/", directory, "/CortTemp_Plot.png", sep = ""), 
+                        width=90, height=90, units="mm") #save a picture
 
 (CortMSMR_Plot <- ggplot(CortMSMR_Data, aes(x=log(MSMR), y = log(Cort))) +
     geom_point(aes(colour = Species)) +
@@ -175,11 +153,12 @@ ggsave(filename = "Figures/CortTemp_Plot.png", width=90, height=90, units="mm") 
              parse = TRUE) +
     labs(x = "MSMR (ln(mW/g))",
          y = "Cort (ln(ng/ml))") +
-    scale_x_continuous(limits = c(-4, -0)) +
+    scale_x_continuous(limits = c(-3.5, -0)) +
     scale_y_continuous(limits = c(-1, 7))
 )
 
-ggsave(filename = "Figures/CortMSMR_Plot.png", width=90, height=90, units="mm") #save a picture
+ggsave(filename = paste("Figures/", directory, "/CortMSMR_Plot.png", sep = ""), 
+                        width=90, height=90, units="mm") #save a picture
 
 # # Stats Table -------------------------------------------------------------
 # 
