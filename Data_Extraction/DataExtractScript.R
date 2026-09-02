@@ -27,7 +27,7 @@ files <- list.files(path = "Data_Extraction",
                     pattern = "\\.exp$",
                     full.names = TRUE) # List all .exp files 
 
-filetemp <- read.exp("Data_Extraction/14cNS-Mar13_0001.exp")
+# filetemp <- read.exp("Data_Extraction/14cNS-Mar13_0001.exp") # read individual file
 
 # Experimental settings ---------------------------------------------------
 
@@ -52,7 +52,7 @@ fit_asymptote <- function(df){
   
   # Starting parameter estimates
   start_A  <- mean(tail(df$CO2, 30), na.rm = TRUE) # last 30 points
-  start_y0 <- first(df$CO2) # first point after discard
+  start_y0 <- df$CO2[1] # first point after discard
   start_k  <- 0.01 
   
   # Nonlinear fit
@@ -96,7 +96,9 @@ process_exp <- function(file_path){
     as.data.frame(.) %>%
     slice(-1) %>% # Cut out first row
     mutate(CO2_Raw = CO2, 
-           CO2 = CO2*(BP-WVP)/BP, # correct for WVP
+           FR_Raw = FR,
+           CO2 = CO2*(BP - WVP) / BP, # correct for WVP
+           FR = FR*(BP - WVP) / BP,
            time = row_number(),
            cycle = floor((time - 1) / cycle_length),
            time_in_cycle = (time - 1) %% cycle_length,
@@ -231,7 +233,7 @@ process_exp <- function(file_path){
          col = "red") # Label animal asymptote
   }
   
-  grDevices::dev.off()  # Explicitly close PNG device
+  # grDevices::dev.off()  # Explicitly close PNG device
   
   # CALCULATE CONTROL VALUES
   # Average of final 30 seconds of each control chamber
@@ -239,6 +241,7 @@ process_exp <- function(file_path){
     filter(phase == "control", valid) %>%
     group_by(cycle) %>%
     summarise(control_co2 = mean(tail(CO2, 30),na.rm = TRUE), 
+              control_fr = mean(FR, na.rm = TRUE),
               .groups = "drop")
   
   # CALCULATE ANIMAL ASYMPTOTES
@@ -247,16 +250,18 @@ process_exp <- function(file_path){
     group_by(cycle) %>%
     group_modify(~{
       fit_result <- fit_asymptote(.x)
-      tibble(total_co2 = ifelse(is.null(fit_result), NA, fit_result$asymptote))}) %>%
+      tibble(total_co2 = ifelse(is.null(fit_result), NA, fit_result$asymptote),
+             animal_fr = mean(.x$FR, na.rm = TRUE))}) %>%
     ungroup()
+  
   
   # COMBINE SUMMARIES
   co2_summary <- animal_summary %>%
     left_join(
       control_vals,
       by = "cycle") %>%
-    mutate(delta_co2 = total_co2 - control_co2, # Baseline-corrected CO2
-           VCO2_ml_min = flow * delta_co2 / 100, # Convert to mL/min (sable unit is percent)
+    mutate(delta_co2 = total_co2*animal_fr - control_co2*control_fr, # Baseline-corrected CO2
+           VCO2_ml_min = delta_co2 / 100, # Convert to mL/min (sable unit is percent)
            file = base_name, # Metadata
            temp = temp,
            stress = stress,
