@@ -31,7 +31,7 @@ files <- list.files(path = "Data_Extraction",
 
 # Experimental settings ---------------------------------------------------
 
-flow <- 50                 # flow rate (mL/min)
+# flow rate is set to 50 (mL/min) but we recalculate each run
 discard <- 40              # seconds discarded after switching
 cycle_length <- 361 + 601  # total cycle duration (sec)
 
@@ -81,7 +81,7 @@ fit_asymptote <- function(df){
 process_exp <- function(file_path){
   
   base_name <- tools::file_path_sans_ext(basename(file_path)) # save the title but not full path
-
+  
   meta <- str_match(base_name, "^(\\d+c)(NS|S)-([A-Za-z0-9]+)_") # save title as metadata
   
   temp    <- str_remove(meta[,2], "c") # remove the c
@@ -148,11 +148,10 @@ process_exp <- function(file_path){
         lwd = 1.5)
     } # Plot control start
     
-    animal_start <- which( sableDat$cycle == i &
-                             sableDat$time_in_cycle == 361)[1] # Find animal starts
+    animal_start <- which(sableDat$cycle == i &
+                            sableDat$time_in_cycle == 361)[1] # Find animal starts
     
     if(!is.na(animal_start)){
-      
       abline(
         v = animal_start,
         col = "purple",
@@ -171,9 +170,7 @@ process_exp <- function(file_path){
       filter(cycle == i, phase == "control", valid) # use only control cycles
     
     if(nrow(control_df) >= 30){
-      control_asym <- mean(
-        tail(control_df$CO2, 30),
-        na.rm = TRUE) # Average CO2 from the final 30 seconds
+      control_asym <- mean(tail(control_df$CO2, 30), na.rm = TRUE) # Average CO2 from the final 30 seconds
       
       # Locate control indices in full trace
       control_idx <- which(sableDat$cycle == i &
@@ -186,16 +183,16 @@ process_exp <- function(file_path){
                   control_asym),
             col = "red",
             lty = 2,
-            lwd = 2 ) # Plot control average
-    }
+            lwd = 2 ) 
+    } # Plot control average
     
     # ANIMAL ASYMPTOTE
     animal_df <- sableDat %>%
-      filter(cycle == i, phase == "animal", valid)
+      filter(cycle == i, phase == "animal", valid) # use only animal cycles
     
     if(nrow(animal_df) < 180){
       next
-    } # Skip tiny datasets
+    } # Skip incomplete datasets
     
     fit_result <- fit_asymptote(animal_df) # Fit animal asymptote
     
@@ -233,18 +230,15 @@ process_exp <- function(file_path){
          col = "red") # Label animal asymptote
   }
   
-  # grDevices::dev.off()  # Explicitly close PNG device
-  
-  # CALCULATE CONTROL VALUES
-  # Average of final 30 seconds of each control chamber
+  # Calculate control values
   control_vals <- sableDat %>%
     filter(phase == "control", valid) %>%
     group_by(cycle) %>%
-    summarise(control_co2 = mean(tail(CO2, 30),na.rm = TRUE), 
+    summarise(control_co2 = mean(tail(CO2, 30),na.rm = TRUE), # Average of final 30 seconds of each control chamber
               control_fr = mean(FR, na.rm = TRUE),
               .groups = "drop")
   
-  # CALCULATE ANIMAL ASYMPTOTES
+  # Calculate animal anymptotes
   animal_summary <- sableDat %>%
     filter(phase == "animal", valid) %>%
     group_by(cycle) %>%
@@ -252,8 +246,7 @@ process_exp <- function(file_path){
       fit_result <- fit_asymptote(.x)
       tibble(total_co2 = ifelse(is.null(fit_result), NA, fit_result$asymptote),
              animal_fr = mean(.x$FR, na.rm = TRUE))}) %>%
-    ungroup()
-  
+    ungroup() 
   
   # COMBINE SUMMARIES
   co2_summary <- animal_summary %>%
@@ -281,10 +274,8 @@ all_co2 <- map_dfr(files, process_exp) # PROCESS ALL FILES
 
 head(all_co2)
 
-write.csv(
-  all_co2,
-  "Data_Extraction/CO2_Asymptote_Summary.csv",
-  row.names = FALSE
-) # EXPORT
+write.csv(all_co2,
+          "Data_Extraction/CO2_Asymptote_Summary.csv",
+          row.names = FALSE) # EXPORT
 
 
