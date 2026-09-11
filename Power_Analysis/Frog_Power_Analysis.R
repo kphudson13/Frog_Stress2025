@@ -30,7 +30,7 @@ for (j in 1:length(numvec)) {
   Sys.sleep(1 / nsim)
   N <- numvec[j] #sample size
   SimulatedData <- data.frame(ID = as.character(seq(1,N,1)), 
-                              Temp = as.numeric(rep(c(14,24,34), length = N)), # six temp treatments 
+                              Temp = as.numeric(rep(c(14,24,34), length = N)), # three temp treatments 
                               sex = NA,
                               Mass = NA) 
   for (i in 1:nsim){
@@ -64,7 +64,7 @@ for (j in 1:length(numvec)) {
 
 par(mfrow=c(2,3)) #set up 2x2 plot layout)
 
-#MSMR mass plot
+ #MSMR mass plot
 plot(numvec, MSMRMassPowerVec, xlab="Sample size", ylab="Statistical power", main = "MSMR ~ Mass", type="p", pch=16, bty = "l")
 lines(lowess(numvec, MSMRMassPowerVec), col="red", lwd = 2) #add a lowess line to the plot
 grid() #add gridlines
@@ -100,7 +100,7 @@ abline(h=0.8, col="blue") #add a line at 0.8 power
 mtext(text="E", side = 3, adj = 0, font = 2)
 
 
-# dev.off() #close the plot device
+dev.off() #close the plot device
 
 
 
