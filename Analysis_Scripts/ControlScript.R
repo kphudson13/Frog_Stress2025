@@ -21,7 +21,8 @@ Whole_data <- read.csv("Data_Spreadsheet.csv") %>%
          mW = VCO2 * 21.1 / 60 * 1000, # energetic conversion(jouls per ml), min to sec, and Watts to mW
          MSMR = VCO2/Weight,
          Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other"),
-         Sex = ifelse(is.na(Sex) | Sex == "", "Other", Sex))
+         Sex = ifelse(is.na(Sex) | Sex == "", "Other", Sex),
+         JulianDate = as.numeric(format(as.Date(CaptureDate, format = "%B %d %Y"), "%j")))
 
 # All Data ----------------------------------------------------------------
 
