@@ -1,7 +1,8 @@
 
-# Directory function ------------------------------------------------------
+
 
 #make a figure directory for initial pull users
+
 CreateDR <- function(DR) {
   if (!file.exists("Figures")) {
     dir.create("Figures")
