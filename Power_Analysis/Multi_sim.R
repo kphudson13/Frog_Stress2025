@@ -3,6 +3,7 @@ library(tidyverse) #for everything
 library(gridExtra) #to export the stats tables
 library(grid)
 library(cowplot) #to arrange ggplots in a grid 
+library(progress)
 
 
 # Simulate data -----------------------------------------------------------
