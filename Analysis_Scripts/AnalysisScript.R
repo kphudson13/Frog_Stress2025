@@ -19,7 +19,7 @@ CortWeightTemp_Unfiltered <- lm(data = Data, log(Cort) ~ log(Weight) + Temperatu
 
 
 # Run Cook's distance filtering -----------------------------------------------
-
+# this function is stored in the repository
 CDist_fun(MSMRWeightTemp_Unfiltered,
           log(MSMR) ~ log(Weight) + Temperature + Species,
           Whole_data)
@@ -72,22 +72,36 @@ ggsave(filename = paste("Figures/", directory, "/MSMRWeight_Plot.png", sep = "")
 # normalized points for plotting
 MSMRWeightTemp_Data$MSMR_NormWeight <- log(MSMRWeightTemp_Data$MSMR) - MSMRWeightTemp_Model[["coefficients"]][["log(Weight)"]]*log(MSMRWeightTemp_Data$Weight)
 
+
 (MSMRTemp_Plot <- ggplot(MSMRWeightTemp_Data, aes(x = Temperature, y = MSMR_NormWeight)) +
-    geom_point(aes(colour = Species)) +
-    geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
-                slope = coefficients(summary(MSMRWeightTemp_Model))[3,1]) +
+    geom_boxplot(aes(group = Temperature)) +
+    geom_jitter(width = 0.25, aes(colour = Species)) +
     theme_classic() +
     theme1 +
-    annotate("text", size = 3.5, x = 20, y = -4,
-             label = list(bquote(atop(y==~ .(round(coefficients(summary(MSMRWeightTemp_Model))[1,1], 2))
-                                      ~e^{.(round(coefficients(summary(MSMRWeightTemp_Model))[3,1], 2))*x},
-                                      Partial ~R^2 ==~ .(round(rsq.partial(MSMRWeightTemp_Model)$partial.rsq[2], 2))))),
-             parse = TRUE) +
     labs(x = "Temperature (c)",
          y = expression("Normalized MSMR (ln(ml CO2 min"^-1*" g"^-1*"))")) +
-    scale_x_continuous(limits = c(12, 40)) +
+    scale_x_continuous(limits = c(9, 40), breaks = c(14, 24, 34)) +
     scale_y_continuous(limits = c(-10, -3))
 )
+
+
+# 
+# (MSMRTemp_Plot <- ggplot(MSMRWeightTemp_Data, aes(x = Temperature, y = MSMR_NormWeight)) +
+#     geom_point(aes(colour = Species)) +
+#     geom_abline(intercept = coefficients(summary(MSMRWeightTemp_Model))[1,1],
+#                 slope = coefficients(summary(MSMRWeightTemp_Model))[3,1]) +
+#     theme_classic() +
+#     theme1 +
+#     annotate("text", size = 3.5, x = 20, y = -4,
+#              label = list(bquote(atop(y==~ .(round(coefficients(summary(MSMRWeightTemp_Model))[1,1], 2))
+#                                       ~e^{.(round(coefficients(summary(MSMRWeightTemp_Model))[3,1], 2))*x},
+#                                       Partial ~R^2 ==~ .(round(rsq.partial(MSMRWeightTemp_Model)$partial.rsq[2], 2))))),
+#              parse = TRUE) +
+#     labs(x = "Temperature (c)",
+#          y = expression("Normalized MSMR (ln(ml CO2 min"^-1*" g"^-1*"))")) +
+#     scale_x_continuous(limits = c(12, 40)) +
+#     scale_y_continuous(limits = c(-10, -3))
+# )
 
 ggsave(filename = paste("Figures/", directory, "/MSMRTemp_Plot.png", sep = ""), 
        width=90, height=90, units="mm") #save a picture
@@ -119,21 +133,33 @@ ggsave(filename = paste("Figures/", directory, "/CortWeight_Plot.png", sep = "")
 CortWeightTemp_Data$Cort_NormWeight <- log(CortWeightTemp_Data$Cort) - CortWeightTemp_Model[["coefficients"]][["log(Weight)"]]*log(CortWeightTemp_Data$Weight)
 
 (CortTemp_Plot <- ggplot(CortWeightTemp_Data, aes(x=Temperature, y = Cort_NormWeight)) +
-    geom_point(aes(colour = Species)) +
-    geom_abline(intercept = coefficients(summary(CortWeightTemp_Model))[1,1],
-                slope = coefficients(summary(CortWeightTemp_Model))[3,1]) +
+    geom_boxplot(aes(group = Temperature)) +
+    geom_jitter(width = 0.25, aes(colour = Species)) +
     theme_classic() +
     theme1 +
-    annotate("text", size = 3.5, x = 20, y = 5.5,
-             label = list(bquote(atop(y==~ .(round(coefficients(summary(CortWeightTemp_Model))[1,1], 2))
-                                      ~e^{.(round(coefficients(summary(CortWeightTemp_Model))[3,1], 2))*x},
-                                      Partial ~R^2 ==~ .(round(rsq.partial(CortWeightTemp_Model)$partial.rsq[2], 2))))),
-             parse = TRUE) +
     labs(x = "Temperature (c)",
          y = "Normalized Cort (ln(ng/ml))") +
-    scale_x_continuous(limits = c(12, 40)) +
+    scale_x_continuous(limits = c(9, 40), breaks = c(14, 24, 34)) +
     scale_y_continuous(limits = c(-2, 7))
 )
+
+
+# (CortTemp_Plot <- ggplot(CortWeightTemp_Data, aes(x=Temperature, y = Cort_NormWeight)) +
+#     geom_point(aes(colour = Species)) +
+#     geom_abline(intercept = coefficients(summary(CortWeightTemp_Model))[1,1],
+#                 slope = coefficients(summary(CortWeightTemp_Model))[3,1]) +
+#     theme_classic() +
+#     theme1 +
+#     annotate("text", size = 3.5, x = 20, y = 5.5,
+#              label = list(bquote(atop(y==~ .(round(coefficients(summary(CortWeightTemp_Model))[1,1], 2))
+#                                       ~e^{.(round(coefficients(summary(CortWeightTemp_Model))[3,1], 2))*x},
+#                                       Partial ~R^2 ==~ .(round(rsq.partial(CortWeightTemp_Model)$partial.rsq[2], 2))))),
+#              parse = TRUE) +
+#     labs(x = "Temperature (c)",
+#          y = "Normalized Cort (ln(ng/ml))") +
+#     scale_x_continuous(limits = c(12, 40)) +
+#     scale_y_continuous(limits = c(-2, 7))
+# )
 
 ggsave(filename = paste("Figures/", directory, "/CortTemp_Plot.png", sep = ""), 
        width=90, height=90, units="mm") #save a picture
