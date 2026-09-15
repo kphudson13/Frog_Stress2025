@@ -2,26 +2,19 @@
 # Model selection for the 2026 study comparing
 # metabolic rate and corticosterone in frogs
 #
+# This script should be ran from control script, if not 
+# you'll need to manually load in data
+# 
 # Author: Kyle Hudson
 # Circa 2026
 # Live laugh love
 # =========================================================
 
-library(tidyverse)
-
-rm(list=ls()) # Clear environment
-
-Data <- read.csv("Data_Spreadsheet.csv") %>%
-  mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2),
-         mW = VCO2 * 21.1 / 60 * 1000, # energetic conversion(jouls per ml), min to sec, and Watts to mW
-         Reproductive = ifelse(Reproductive == "Gravid", Reproductive, "Other"),
-         Sex = ifelse(is.na(Sex) | Sex == "", "Other", Sex), 
-         ReproSex = case_when(
+Data <- Data %>%
+  mutate(ReproSex = case_when(
            Reproductive == "Gravid" ~ "Gravid",
            !is.na(Sex) & Sex != "" ~ Sex,
-           TRUE ~ "Other"),
-         JulianDate = as.numeric(format(as.Date(CaptureDate, format = "%B %d %Y"), "%j")),
-         MSMR = mW/Weight)
+           TRUE ~ "Other"))
 
 # Build models ------------------------------------------------------------
 
