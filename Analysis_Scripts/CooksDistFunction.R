@@ -3,7 +3,7 @@
 
 CDist_fun <- function(mod, formula, data) {
   CD <- cooks.distance(mod)
-  keep <- CD <= 4 / nobs(mod) 
+  keep <- CD <= 4 / (nobs(mod) - length(coef(mod))) # works out to n-p-1
   model_rows <- as.integer(names(residuals(mod)))
   model_data <- data[model_rows, , drop = FALSE]
   filtered_data <- model_data[keep, , drop = FALSE]
