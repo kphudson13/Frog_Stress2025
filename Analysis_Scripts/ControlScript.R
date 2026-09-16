@@ -11,10 +11,12 @@ library(tidyverse)
 library(grid)
 library(gridExtra) # for stats table theme
 library(rsq) # for partial r2
+library(emmeans)
 
 rm(list=ls()) # Clear environment
 source("Analysis_Scripts/DirectoryFunction.R")
 source("Analysis_Scripts/CooksDistFunction.R")
+source("Analysis_Scripts/AssignLettersFunction.R")
 
 Whole_data <- read.csv("Data_Spreadsheet.csv") %>%
   mutate(VCO2 = ifelse(VCO2 <= 0, NA, VCO2),
