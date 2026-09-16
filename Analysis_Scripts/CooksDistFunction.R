@@ -1,8 +1,9 @@
 
 # Cook's Distance Function ---------------------------------------------------
 
-CDist_fun <- function(mod, formula, data) {
+CDist_fun <- function(mod, data) {
   CD <- cooks.distance(mod)
+  formula <- mod[["terms"]] # pull in formula
   keep <- CD <= 4 / (nobs(mod) - length(coef(mod))) # works out to n-p-1
   model_rows <- as.integer(names(residuals(mod)))
   model_data <- data[model_rows, , drop = FALSE]
