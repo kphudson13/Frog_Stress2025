@@ -67,11 +67,11 @@ MSMRWeightTemp_AIC <- AIC(MSMRWeightTemp_Model,
                           MSMRWeightTemp_RepSex_Model,
                           MSMRWeightTemp_Spp_Model)
 
-MSMRWeightTemp_BIC <- BIC(MSMRWeightTemp_Model, 
-                          MSMRWeightTemp_Rep_Model, 
-                          MSMRWeightTemp_Sex_Model, 
-                          MSMRWeightTemp_RepSex_Model,
-                          MSMRWeightTemp_Spp_Model)
+# MSMRWeightTemp_BIC <- BIC(MSMRWeightTemp_Model, 
+#                           MSMRWeightTemp_Rep_Model, 
+#                           MSMRWeightTemp_Sex_Model, 
+#                           MSMRWeightTemp_RepSex_Model,
+#                           MSMRWeightTemp_Spp_Model)
 
 # Cort models 
 CortWeightTemp_AIC <- AIC(CortWeightTemp_Model, 
@@ -80,11 +80,11 @@ CortWeightTemp_AIC <- AIC(CortWeightTemp_Model,
                           CortWeightTemp_RepSex_Model,
                           CortWeightTemp_Spp_Model)
 
-CortWeightTemp_BIC <- BIC(CortWeightTemp_Model, 
-                          CortWeightTemp_Rep_Model, 
-                          CortWeightTemp_Sex_Model,
-                          CortWeightTemp_RepSex_Model,
-                          CortWeightTemp_Spp_Model)
+# CortWeightTemp_BIC <- BIC(CortWeightTemp_Model, 
+#                           CortWeightTemp_Rep_Model, 
+#                           CortWeightTemp_Sex_Model,
+#                           CortWeightTemp_RepSex_Model,
+#                           CortWeightTemp_Spp_Model)
 
 # Cort MSMR models
 CortMSMR_AIC <- AIC(CortMSMR_Model, 
@@ -93,8 +93,8 @@ CortMSMR_AIC <- AIC(CortMSMR_Model,
                     CortMSMR_RepSex_Model,
                     CortMSMR_Spp_Model)
 
-CortMSMR_BIC <- BIC(CortMSMR_Model, 
-                    CortMSMR_Rep_Model, 
-                    CortMSMR_Sex_Model,
-                    CortMSMR_RepSex_Model,
-                    CortMSMR_Spp_Model)
+# CortMSMR_BIC <- BIC(CortMSMR_Model, 
+#                     CortMSMR_Rep_Model, 
+#                     CortMSMR_Sex_Model,
+#                     CortMSMR_RepSex_Model,
+#                     CortMSMR_Spp_Model)
