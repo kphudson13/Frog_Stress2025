@@ -12,6 +12,7 @@ library(grid)
 library(gridExtra) # for stats table theme
 library(rsq) # for partial r2
 library(emmeans)
+library(cowplot) #to combine plots 
 
 rm(list=ls()) # Clear environment
 source("Analysis_Scripts/DirectoryFunction.R")
