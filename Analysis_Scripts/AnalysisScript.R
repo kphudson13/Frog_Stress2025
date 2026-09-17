@@ -16,7 +16,6 @@ MSMRWeightTemp_Unfiltered <- lm(data = Whole_data, log(MSMR) ~ log(Weight) + Tem
 CortMSMR_Unfiltered <- lm(data = Data, log(Cort) ~ log(MSMR) + Species) 
 CortWeightTemp_Unfiltered <- lm(data = Data, log(Cort) ~ log(Weight) + Temperature + Species)
 
-
 # Run Cook's distance filtering -----------------------------------------------
 
 # this function is stored in the repository
@@ -200,8 +199,8 @@ save_plot(plot_grid(MSMRTemp_Plot, MSMRWeight_Plot,
 
 # Extract CIs beforehand
 ci_list <- rbind(confint(CortMSMR_Model),
-                 confint(MSMRWeightTemp_Model),
-                 confint(CortWeightTemp_Model)) %>%
+                 confint(CortWeightTemp_Model),
+                 confint(MSMRWeightTemp_Model)) %>%
   as.data.frame() %>%
   slice(-c(1,3,4,5,6,9,10,11,12,15,16,17))
 
