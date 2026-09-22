@@ -31,7 +31,7 @@ theme1 <- theme(
   legend.background = element_blank(), # make clear 
   legend.title = element_blank(), # remove title
   legend.key.height = unit(0.6, "lines"), # fit legend lines closer together
-  legend.position=c(.8, 0.1)
+  legend.position=c(.75, 0.1)
 ) # set standard theme for plots
 
 CortMSMR_emm <- emmeans(CortMSMR_Model, ~ MSMR,
