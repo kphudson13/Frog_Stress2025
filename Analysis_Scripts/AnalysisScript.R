@@ -122,10 +122,6 @@ CortTemp_letters <- assign_letters(CortTemp_differences, CortWeightTemp_Data, "C
 ggsave(filename = paste("Figures/", directory, "/CortTemp_Plot.png", sep = ""), 
        width=90, height=90, units="mm") #save a picture
 
-save_plot(plot_grid(CortTemp_Plot, CortWeight_Plot, 
-                    labels = c("A", "B"), label_fontface = "plain"),
-          filename = paste("Figures/", directory, "/Figure_2.png", sep = ""),
-          base_height = 3.3, base_width = 6.6)
 
 # calculate estimated marginal mean
 MSMRWeight_emm <- emmeans(MSMRWeightTemp_Model, ~ Weight,
@@ -190,7 +186,18 @@ MSMRTemp_letters <- assign_letters(MSMRTemp_differences, MSMRWeightTemp_Data, "M
 ggsave(filename = paste("Figures/", directory, "/MSMRTemp_Plot.png", sep = ""), 
        width=90, height=90, units="mm") #save a picture
 
-save_plot(plot_grid(MSMRTemp_Plot, MSMRWeight_Plot, 
+
+# Combined Figures --------------------------------------------------------
+
+
+
+save_plot(plot_grid(CortTemp_Plot, MSMRTemp_Plot, 
+                    labels = c("A", "B"), label_fontface = "plain"),
+          filename = paste("Figures/", directory, "/Figure_2.png", sep = ""),
+          base_height = 3.3, base_width = 6.6)
+
+
+save_plot(plot_grid(CortWeight_Plot, MSMRWeight_Plot, 
                     labels = c("A", "B"), label_fontface = "plain"),
           filename = paste("Figures/", directory, "/Figure_3.png", sep = ""),
           base_height = 3.3, base_width = 6.6)
