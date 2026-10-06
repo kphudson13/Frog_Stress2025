@@ -27,29 +27,23 @@ CDist_fun(CortMSMR_Unfiltered, Data)
 
 # Plots -------------------------------------------------------------------
 
-theme1 <- theme(
-  legend.background = element_blank(), # make clear 
-  legend.title = element_blank(), # remove title
-  legend.key.height = unit(0.6, "lines"), # fit legend lines closer together
-  legend.position=c(.75, 0.1)
-) # set standard theme for plots
-
 CortMSMR_emm <- emmeans(CortMSMR_Model, ~ MSMR,
                         at = list(
                           MSMR = exp(seq(-10, -4, length.out = 100)))) %>%
   as.data.frame(.)
 
 (CortMSMR_Plot <- ggplot(CortMSMR_Data, aes(x=log(MSMR), y = log(Cort))) +
-    geom_point(aes(colour = Species)) +
+    geom_point(aes(colour = Species, shape = as.factor(Temperature))) +
     geom_line(data = CortMSMR_emm, aes(x = log(MSMR), y = emmean), inherit.aes = FALSE) +
     theme_classic() +
     theme1 +
+    theme(legend.box = "horizontal") +
     annotate("text", size = 3.5, x = -8, y = 6,
              label = list(bquote(atop(y==~ .(round(coefficients(summary(CortMSMR_Model))[1,1], 2))
                                       ~x^.(round(coefficients(summary(CortMSMR_Model))[2,1], 2)),
                                       Partial ~R^2 ==~ .(round(rsq.partial(CortMSMR_Model)$partial.rsq[1], 2))))),
              parse = TRUE) +
-    labs(x = expression("MSMR (ln(ml CO2 min"^-1*" g"^-1*"))"),
+    labs(x = expression("MSMR (ln(ml CO"[2]*" min"^-1*" g"^-1*"))"),
          y = "Cort (ln(ng/ml))") +
     scale_x_continuous(limits = c(-10, -4)) +
     scale_y_continuous(limits = c(-1, 7))
@@ -113,10 +107,11 @@ CortTemp_letters <- assign_letters(CortTemp_differences, CortWeightTemp_Data, "C
              parse = TRUE) +
     geom_text(data = CortTemp_letters, aes(x = Temperature, y = y_pos, label = letter),
               inherit.aes = FALSE) +
-    labs(x = "Temperature (c)",
+    labs(x = "Temperature (°C)",
          y = "Cort (ln(ng/ml))") +
     scale_x_continuous(limits = c(9, 40), breaks = c(14, 24, 34)) +
-    scale_y_continuous(limits = c(0, 7), breaks = seq(0,6,2))
+    scale_y_continuous(limits = c(0, 7), breaks = seq(0,6,2)) +
+    guides(colour = "none")
 )
 
 ggsave(filename = paste("Figures/", directory, "/CortTemp_Plot.png", sep = ""), 
@@ -141,10 +136,10 @@ MSMRWeight_emm <- emmeans(MSMRWeightTemp_Model, ~ Weight,
                                       Partial ~R^2 ==~ .(round(rsq.partial(MSMRWeightTemp_Model)$partial.rsq[1], 2))))),
              parse = TRUE) +
     labs(x = "Weight(ln(g))",
-         y = expression("MSMR (ln(ml CO2 min"^-1*" g"^-1*"))")) +
+         y = expression("MSMR (ln(ml CO"[2]*" min"^-1*" g"^-1*"))")) +
     scale_x_continuous(limits = c(-1, 4)) +
     scale_y_continuous(limits = c(-11, -3), breaks = seq(-10,-4,2)) +
-    guides(colour = "none")
+    guides(shape = "none")
 ) 
 
 ggsave(filename = paste("Figures/", directory, "/MSMRWeight_Plot.png", sep = ""), 
@@ -177,8 +172,8 @@ MSMRTemp_letters <- assign_letters(MSMRTemp_differences, MSMRWeightTemp_Data, "M
              parse = TRUE) +
     geom_text(data = MSMRTemp_letters, aes(x = Temperature, y = y_pos, label = letter),
               inherit.aes = FALSE) +
-    labs(x = "Temperature (c)",
-         y = expression("MSMR (ln(ml CO2 min"^-1*" g"^-1*"))")) +
+    labs(x = "Temperature (°C)",
+         y = expression("MSMR (ln(ml CO"[2]*" min"^-1*" g"^-1*"))")) +
     scale_x_continuous(limits = c(9, 40), breaks = c(14, 24, 34)) +
     scale_y_continuous(limits = c(-11, -3), breaks = seq(-10,-4,2))
 )
@@ -189,13 +184,10 @@ ggsave(filename = paste("Figures/", directory, "/MSMRTemp_Plot.png", sep = ""),
 
 # Combined Figures --------------------------------------------------------
 
-
-
 save_plot(plot_grid(CortTemp_Plot, MSMRTemp_Plot, 
                     labels = c("A", "B"), label_fontface = "plain"),
           filename = paste("Figures/", directory, "/Figure_2.png", sep = ""),
           base_height = 3.3, base_width = 6.6)
-
 
 save_plot(plot_grid(CortWeight_Plot, MSMRWeight_Plot, 
                     labels = c("A", "B"), label_fontface = "plain"),
@@ -243,10 +235,10 @@ Stats_Tab[is.na(Stats_Tab)] <- ' '
 tt1 <- ttheme_minimal(rowhead=list(fg_params=list(fontface = "bold"))
 ) #set the theme for the table png)
 
-write.csv(Stats_Tab, file = paste("Figures/", directory, "/StatsTab.csv", sep = ""), row.names = TRUE)
+write.csv(Stats_Tab, file = paste("Figures/", directory, "/Stats_Table.csv", sep = ""), row.names = TRUE)
 
 #export stats table
-png(paste("Figures/", directory, "/StatsTab.png", sep = ""),
+png(paste("Figures/", directory, "/Stats_Table.png", sep = ""),
     height = 180*nrow(Stats_Tab),
     width = 500*ncol(Stats_Tab),
     res = 300)
