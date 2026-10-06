@@ -10,11 +10,7 @@
 # Live laugh love
 # =========================================================
 
-Data <- Data %>%
-  mutate(ReproSex = case_when(
-           Reproductive == "Gravid" ~ "Gravid",
-           !is.na(Sex) & Sex != "" ~ Sex,
-           TRUE ~ "Other"))
+
 
 # Build models ------------------------------------------------------------
 
@@ -98,3 +94,40 @@ CortMSMR_AIC <- AIC(CortMSMR_Model,
 #                     CortMSMR_Sex_Model,
 #                     CortMSMR_RepSex_Model,
 #                     CortMSMR_Spp_Model)
+
+
+
+
+# AIC Table ---------------------------------------------------------------
+
+AIC_table <- as.data.frame(rbind(CortMSMR_AIC, CortWeightTemp_AIC, MSMRWeightTemp_AIC)) %>%
+  mutate(across(2, \(x) round(x, digits = 2))) %>%
+  add_row(.before = 1) %>% add_row(.before = 7) %>% add_row(.before = 13) %>% #add blank rows to divide cortisol and crtstn and blank model
+  mutate(Model = c(NA,
+                   "Corticosterone ~ MSMR", 
+                   "Corticosterone ~ MSMR + Reproductive", 
+                   "Corticosterone ~ MSMR + Sex", 
+                   "Corticosterone ~ MSMR + ReproSex",
+                   "Corticosterone ~ MSMR + Species",
+                   NA,
+                   "Corticosterone ~ Temp + Mass",
+                   "Corticosterone ~ Temp + Mass + Reproductive",
+                   "Corticosterone ~ Temp + Mass + Sex",
+                   "Corticosterone ~ Temp + Mass + Reprosex",
+                   "Corticosterone ~ Temp + Mass + Species",
+                   NA,
+                   "MSMR ~ Temp + Mass",
+                   "MSMR ~ Temp + Mass + Reproductive",
+                   "MSMR ~ Temp + Mass + Sex",
+                   "MSMR ~ Temp + Mass + Reprosex",
+                   "MSMR ~ Temp + Mass + Species"
+                   )) %>%
+  `rownames<-`(NULL) %>%
+  select(3,1,2)
+
+AIC_table[is.na(AIC_table)] <- " "  # remove NAs
+
+write.csv(AIC_table, file = paste("Figures/", directory, "/AIC_Table.csv", sep = ""))
+
+
+
