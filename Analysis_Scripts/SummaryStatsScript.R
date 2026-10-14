@@ -37,8 +37,7 @@ legend_labels_Cort <- setNames(counts_species_cort$label, counts_species_cort$Sp
     geom_text(data = counts_temp_cort,
               aes(x = Temperature, y = y_pos + 0.2, label = paste0("n = ", n)),
               colour = "black",
-              size = 3,
-              show.legend = FALSE) +
+              size = 3) +
     theme_classic() +
     theme1 +
     theme(legend.position=c(0.7, 0.1)) +
@@ -69,8 +68,7 @@ legend_labels_MSMR <- setNames(counts_species_MSMR$label, counts_species_MSMR$Sp
     geom_text(data = counts_temp_MSMR,
               aes(x = Temperature, y = y_pos + 0.2, label = paste0("n = ", n)),
               colour = "black",
-              size = 3,
-              show.legend = FALSE) +
+              size = 3) +
     theme_classic() +
     theme1 +
     theme(legend.position=c(0.7, 0.1)) +
@@ -78,8 +76,7 @@ legend_labels_MSMR <- setNames(counts_species_MSMR$label, counts_species_MSMR$Sp
          y = "Weight(ln(g))") +
     scale_x_continuous(limits = c(9, 40), breaks = c(14, 24, 34)) +
     scale_y_continuous(limits = c(-2, 4), breaks = seq(-2, 4, 2)) +
-    scale_colour_discrete(labels = legend_labels_MSMR) +
-    guides(colour = "none"))
+    scale_colour_discrete(labels = legend_labels_MSMR))
 
 
 save_plot(plot_grid(WeightTemp_PlotMSMR, WeightTemp_PlotCORT, 
