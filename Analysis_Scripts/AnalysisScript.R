@@ -33,11 +33,13 @@ CortMSMR_emm <- emmeans(CortMSMR_Model, ~ MSMR,
   as.data.frame(.)
 
 (CortMSMR_Plot <- ggplot(CortMSMR_Data, aes(x=log(MSMR), y = log(Cort))) +
-    geom_point(aes(colour = Species, shape = as.factor(Temperature))) +
+    geom_point(aes(colour = Species, shape = factor(Temperature, labels = c("14°C", "24°C", "34°C")))) +
     geom_line(data = CortMSMR_emm, aes(x = log(MSMR), y = emmean), inherit.aes = FALSE) +
     theme_classic() +
     theme1 +
-    theme(legend.box = "horizontal") +
+    theme(legend.box = "horizontal",
+          legend.spacing.x = unit(0, "lines"),
+          legend.position=c(.65, 0.1)) +
     annotate("text", size = 3.5, x = -8, y = 6,
              label = list(bquote(atop(y==~ .(round(coefficients(summary(CortMSMR_Model))[1,1], 2))
                                       ~x^.(round(coefficients(summary(CortMSMR_Model))[2,1], 2)),
@@ -60,7 +62,7 @@ CortWeight_emm <- emmeans(CortWeightTemp_Model, ~ Weight,
   as.data.frame(.)
 
 (CortWeight_Plot <- ggplot(CortWeightTemp_Data, aes(x=log(Weight), y = log(Cort))) +
-    geom_point(aes(colour = Species, shape = as.factor(Temperature))) +
+    geom_point(aes(colour = Species, shape = factor(Temperature, labels = c("14°C", "24°C", "34°C")))) +
     geom_line(data = CortWeight_emm, aes(x = log(Weight), y = emmean), inherit.aes = FALSE) +
     theme_classic() +
     theme1 +
